@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\hookahController;
 use App\Models\home;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -31,11 +32,11 @@ use Illuminate\Support\Facades\Route;
         Route::get('/dashboard', function() {
             $home = home::first();
             return view('admin.dashboard', compact('home'));
-        });
+        })->name('admin.index');
       // home editor link
         Route::get('/home', [homeController::class, 'index'])->name('home.index');
       // hookah editor link
-        // Route::get('/hookah', [homeController::class, 'index'])->name('admin.hookah.index');
+        Route::get('/hookah', [hookahController::class, 'index'])->name('admin.hookah.index');
         // Route::view('/hookah', 'admin.hookah.dashboard')->name('admin.hookah.index');
       // hookah categories link
         // Route::get('/hookah/categories', [homeController::class, 'index'])->name('home.index');
