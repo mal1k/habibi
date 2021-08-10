@@ -58,6 +58,6 @@ class homeController extends Controller
             }
 
 
-        return redirect()->route('home.index')->with('alert-success', ' Success');
+        return redirect()->route('admin.index')->with('alert-success', ' Success');
     }
 }
