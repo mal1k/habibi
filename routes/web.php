@@ -24,19 +24,19 @@ use Illuminate\Support\Facades\Route;
 // });
 
 # admin part
-  Route::group(['middleware' => ['auth', 'role:admin']], function () {
+  Route::group(['middleware' => ['auth:sanctum', 'verified', 'role:admin']], function () {
     Route::prefix('admin')->group(function () {
     # Links
       // dashboard
-        Route::view('/', 'admin.dashboard');
+        Route::get('/dashboard', function() {
+            $home = home::first();
+            return view('admin.dashboard', compact('home'));
+        });
       // home editor link
         Route::get('/home', [homeController::class, 'index'])->name('home.index');
       // hookah editor link
-        // Route::get('/hookah', [homeController::class, 'index'])->name('hookah.index');
-        Route::view('/hookah', 'admin.hookah.dashboard');
-        Route::post('/example', function () {
-            return 'true';
-        })->name('test');
+        // Route::get('/hookah', [homeController::class, 'index'])->name('admin.hookah.index');
+        // Route::view('/hookah', 'admin.hookah.dashboard')->name('admin.hookah.index');
       // hookah categories link
         // Route::get('/hookah/categories', [homeController::class, 'index'])->name('home.index');
 
@@ -47,10 +47,10 @@ use Illuminate\Support\Facades\Route;
             Route::post('/update', [homeController::class, 'update'])->name('home.update');
         });
       // hookah handlers
-        Route::prefix('hookah')->group(function () {
-          Route::post('/store', [homeController::class, 'store'])->name('home.store');
-          Route::post('/update', [homeController::class, 'update'])->name('home.update');
-        });
+        // Route::prefix('hookah')->group(function () {
+        //   Route::post('/store', [homeController::class, 'store'])->name('admin.hookah.store');
+        //   Route::post('/update', [homeController::class, 'update'])->name('admin.hookah.update');
+        // });
     });
   });
 
@@ -80,9 +80,3 @@ use Illuminate\Support\Facades\Route;
         $home = home::first();
         return view('takeAway', compact('home'));
     })->name('menu.takeAway');
-
-
-# authenticate part
-    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
