@@ -21,19 +21,19 @@ class CreateHomePageTable extends Migration
 
             // hookah part
             $table->string('left_block_img');
-            $table->string('left_block_text');
+            $table->string('left_block_text')->nullable();
 
             // bar part
             $table->string('upper_block_img');
-            $table->string('upper_block_text');
+            $table->string('upper_block_text')->nullable();
 
             // services part
             $table->string('central_block_img');
-            $table->string('central_block_text');
+            $table->string('central_block_text')->nullable();
 
             // with us part
             $table->string('lower_block_img');
-            $table->string('lower_block_text');
+            $table->string('lower_block_text')->nullable();
 
             $table->timestamps();
         });
