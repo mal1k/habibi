@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\homeController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Route::get('new-admin/{id}', function ($id) {
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
-    // some pages here
+    Route::resource('home', homeController::class);
 });
 
 Route::get('/', function () {
