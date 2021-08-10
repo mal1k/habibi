@@ -23,7 +23,12 @@ Route::get('new-admin/{id}', function ($id) {
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
-    Route::resource('home', homeController::class);
+
+  // home link
+    Route::get('/home', [homeController::class, 'index'])->name('home.index');
+  // home handlers
+    Route::post('/home/store', [homeController::class, 'store'])->name('home.store');
+    Route::post('/home/update', [homeController::class, 'update'])->name('home.update');
 });
 
 Route::get('/', function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\home;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,19 +13,10 @@ class homeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(home $home)
     {
-        return view('home');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $home = home::query()->first();
+        return view('home', compact('home'));
     }
 
     /**
@@ -35,29 +27,10 @@ class homeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        if ( home::query()->first() )
+            return dd('Ошибка. Конфигуратор уже существует.');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        return home::create($request->all());
     }
 
     /**
@@ -67,19 +40,22 @@ class homeController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
-    }
+       home::first()->update($request->all());
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
+        $request->validate([
+            'left_block_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'upper_block_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'central_block_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'lower_block_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        foreach ( $request->file() as $name => $file ) {
+            $path = $request->file("$name")->store('home','public');
+            home::first()->update([ "$name" => "$path" ]);
+        }
+
+        return redirect()->route('home.index')->with('alert-success', ' Success');
     }
 }

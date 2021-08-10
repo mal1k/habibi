@@ -14,10 +14,8 @@ class CreateHomePageTable extends Migration
     public function up()
     {
         Schema::create('home_page', function (Blueprint $table) {
-            $table->id();
-
             // logo
-            $table->string('logo');
+            $table->string('logo')->default('logo.png');
 
             // hookah part
             $table->string('left_block_img');
@@ -34,8 +32,6 @@ class CreateHomePageTable extends Migration
             // with us part
             $table->string('lower_block_img');
             $table->string('lower_block_text')->nullable();
-
-            $table->timestamps();
         });
     }
 
