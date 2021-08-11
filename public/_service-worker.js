@@ -1,5 +1,5 @@
 // Cache name
-var CACHE_NAME = 'Appkit-Cache-V10';
+var CACHE_NAME = 'Habibi-Cache-V10';
 
 // Files required to make this app work offline
 var REQUIRED_FILES = [

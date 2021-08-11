@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('/home', [homeController::class, 'index'])->name('home.index');
       // hookah editor link
         Route::get('/hookah', [hookahController::class, 'index'])->name('admin.hookah.index');
+        Route::post('/hookah/get', [hookahController::class, 'get'])->name('admin.hookah.get');
         // Route::view('/hookah', 'admin.hookah.dashboard')->name('admin.hookah.index');
       // hookah categories link
         // Route::get('/hookah/categories', [homeController::class, 'index'])->name('home.index');

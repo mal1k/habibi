@@ -15,7 +15,7 @@
 <link rel="stylesheet" class="page-highlight" type="text/css" href="{{ URL::asset('styles/highlights/highlight_red.css') }}">
 </head>
 
-<body class="theme-dark" data-highlight="highlight-red">
+<body class="delect-theme" data-highlight="highlight-red">
 
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
 

@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //Global Variables
     let isPWA = true;  // Enables or disables the service worker and PWA
     let isAJAX = true; // AJAX transitions. Requires local server or server
-    var pwaName = "Appkit"; //Local Storage Names for PWA
-    var pwaRemind = 1; //Days to re-remind to add to home
+    var pwaName = "Habibi"; // Local Storage Names for PWA
+    var pwaRemind = 0; //Days to re-remind to add to home
     var pwaNoCache = false; //Requires server and HTTPS/SSL. Will clear cache with each visit
 
     //Setting Service Worker Locations scope = folder | location = service worker js location
@@ -508,6 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(function(){setColorScheme();},50)
             }))
         }
+        checkDarkMode()
         if(localStorage.getItem(pwaName+'-Theme') == "dark-mode"){document.body.className = 'theme-dark';}
         if(localStorage.getItem(pwaName+'-Theme') == "light-mode"){document.body.className = 'theme-light';}
 

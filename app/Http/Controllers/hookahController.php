@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\hookah;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class hookahController extends Controller
 {
@@ -14,7 +16,15 @@ class hookahController extends Controller
      */
     public function index()
     {
-        //
+        $hookahs_query = hookah::orderByDesc('id');
+        $hookahs = $hookahs_query->paginate(0);
+        return view('admin.hookah.dashboard', compact('hookahs'));
+    }
+
+    public function get(Request $request)
+    {
+        $hookah = hookah::where('id' , '=' , $request->id )->first();
+        return json_decode($hookah);
     }
 
     /**
