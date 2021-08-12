@@ -1224,7 +1224,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(function(){
                     if(dataMenuLoad[dataMenuLoad.length-1] === e){
                         menuFunction();
-                        checkDarkMode();
                         activateMenus();
                         shareLinks();
                         highlightColors();
