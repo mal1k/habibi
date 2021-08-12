@@ -163,7 +163,7 @@
                     $('#tobaccoInput').val(data.tobacco);
                     $('#strengthInput').val(data.strength);
                     $('#priceInput').val(data.price);
-                    $('.menu-hider .menu-active').show();
+                    $('.menu-hider.menu-active').show();
                     $('#menu-cart-item').show();
                 }
             });
