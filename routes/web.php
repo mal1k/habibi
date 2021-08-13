@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
             return view('admin.dashboard', compact('home'));
         })->name('admin.index');
       // home editor link
-        Route::get('/home', [homeController::class, 'index'])->name('home.index');
+        Route::get('/home', [homeController::class, 'index'])->name('admin.home.index');
       // hookah editor link
         Route::get('/hookah', [hookahController::class, 'index'])->name('admin.hookah.index');
         Route::post('/hookah/get', [hookahController::class, 'get'])->name('admin.hookah.get');
@@ -45,8 +45,8 @@ use Illuminate\Support\Facades\Route;
     # Handlers
       // home handlers
         Route::prefix('home')->group(function () {
-            Route::post('/store', [homeController::class, 'store'])->name('home.store');
-            Route::post('/update', [homeController::class, 'update'])->name('home.update');
+            Route::post('/store', [homeController::class, 'store'])->name('admin.home.store');
+            Route::post('/update', [homeController::class, 'update'])->name('admin.home.update');
         });
       // hookah handlers
         // Route::prefix('hookah')->group(function () {
@@ -60,7 +60,7 @@ use Illuminate\Support\Facades\Route;
 # client part
     Route::get('/', function () {
         $home = home::first();
-        return view('layout', compact('home'));
+        return view('home', compact('home'));
     });
 
     Route::get('/hookahs', function () {

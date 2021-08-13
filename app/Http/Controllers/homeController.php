@@ -16,7 +16,7 @@ class homeController extends Controller
     public function index(home $home)
     {
         $home = home::query()->first();
-        return view('home', compact('home'));
+        return view('admin.home.dashboard', compact('home'));
     }
 
     /**
