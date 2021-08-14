@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hookahController;
+use App\Http\Controllers\tobaccoController;
 use App\Models\home;
 use App\Models\hookah;
 use App\Models\User;
@@ -38,7 +39,6 @@ use Illuminate\Support\Facades\Route;
         Route::get('/home', [homeController::class, 'index'])->name('admin.home.index');
       // hookah editor link
         Route::get('/hookah', [hookahController::class, 'index'])->name('admin.hookah.index');
-        Route::post('/hookah/get', [hookahController::class, 'get'])->name('admin.hookah.get');
         // Route::view('/hookah', 'admin.hookah.dashboard')->name('admin.hookah.index');
       // hookah categories link
         // Route::get('/hookah/categories', [homeController::class, 'index'])->name('home.index');
@@ -51,9 +51,14 @@ use Illuminate\Support\Facades\Route;
         });
       // hookah handlers
         Route::prefix('hookah')->group(function () {
+          Route::post('/get', [hookahController::class, 'get'])->name('admin.hookah.get');
           Route::post('/store', [hookahController::class, 'store'])->name('admin.hookah.store');
           Route::post('/update', [hookahController::class, 'update'])->name('admin.hookah.update');
           Route::post('/destroy', [hookahController::class, 'destroy'])->name('admin.hookah.destroy');
+        });
+      // tobacco handlers
+        Route::prefix('tobacco')->group(function () {
+            Route::post('/get', [tobaccoController::class, 'get'])->name('admin.tobacco.get');
         });
     });
   });
