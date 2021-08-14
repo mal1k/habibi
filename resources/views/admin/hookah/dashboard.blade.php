@@ -99,7 +99,23 @@
                 </div>
             </div>
             <div data-bs-parent="#tobacco" class="collapse" id="brandList">
-                2
+                @isset ( $tobacco )
+                    @foreach ($tobacco as $item)
+                    <div class="d-flex mb-4" item_id="{{ $item->id }}" data-menu="menu-tobacco-item">
+                        <div class="align-self-center">
+                            <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                        </div>
+                        <div class="align-self-center">
+                            <h1 class="color-highlight font-13 mb-n2">{{ $item->tobacco }}</h1>
+                            <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
+                        </div>
+                        <div class="ms-auto align-self-center text-center">
+                            <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
+                            <h2 class="font-15 mb-0" id="price_">{{ $item->price }} ₴</h2>
+                        </div>
+                    </div>
+                    @endforeach
+                @endisset
             </div>
             <div data-bs-parent="#tobacco" class="collapse" id="bowlsList">
                 3
@@ -344,6 +360,39 @@ jQuery(document).ready(function() {
 
 
   // when clicked on created tobacco
+  $('[data-menu="menu-tobacco-item"').click(function(){
+      alert('test')
+        $("#createBrandButton").hide();
+        $('#saveBrandButton').show();
+        $('#deleteBrandButton').show();
+        $('.menu-hider.menu-active').hide();
+        $('#menu-tobacco-item').hide();
+        var id = $(this).attr('hookah_id');
+
+        $("#saveTobaccoButton").attr('itemID', id)
+        $("#deleteTobaccoButton").attr('delete_hookah_id', id)
+
+        $.ajax({
+            type:'POST',
+            url:'{{ route("admin.tobacco.get") }}',
+            data:{id:id},
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                $("#titleInput").val(data.title);
+                $("#hookah_id").attr('name', 'hookah_id');
+                $("#hookah_id").val(data.id);
+                $('#tobaccoInput').val(data.tobacco);
+                $('#strengthInput').val(data.strength);
+                $('#priceInput').val(data.price);
+                $('#nameOfProduct').text(data.title);
+                $('#tobaccoProduct').text(data.tobacco);
+                $('.menu-hider.menu-active').show();
+                $('#menu-tobacco-item').show();
+            }
+        });
+    })
 
   // create tobacco
 
