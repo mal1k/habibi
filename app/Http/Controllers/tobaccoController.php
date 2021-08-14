@@ -27,4 +27,12 @@ class tobaccoController extends Controller
         $tobacco->update($request->all());
         return 'ok';
     }
+
+    // delete
+    public function destroy(Request $request)
+    {
+        $tobacco = tobacco::where('id' , '=' , $request->id )->first();
+        $tobacco->delete();
+        return 'ok';
+    }
 }
