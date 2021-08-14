@@ -53,6 +53,7 @@ use Illuminate\Support\Facades\Route;
         Route::prefix('hookah')->group(function () {
           Route::post('/store', [hookahController::class, 'store'])->name('admin.hookah.store');
           Route::post('/update', [hookahController::class, 'update'])->name('admin.hookah.update');
+          Route::post('/destroy', [hookahController::class, 'destroy'])->name('admin.hookah.destroy');
         });
     });
   });

@@ -4,17 +4,18 @@
 @section('title') Кальяны @endsection
 
 @section('buttons')
-<a href="#" id="addNewItem" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-dark" data-toggle-theme><i class="fa fa-plus color-red-dark"></i></a>
+<a href="#" id="addNewItem" class="page-title-icon shadow-xl bg-theme color-theme"><i class="fa fa-plus color-red-dark"></i></a>
 @endsection
 
 @section('content')
+<div data-menu="menu-cart-item"></div>
 <div class="header-clear-medium">
 <div id="page">
     <div class="card card-style mt-3">
         <div class="content mb-0 mt-3" id="tobacco">
             <div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
-                <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tobaccoList" data-target-id=1>Кальяны</a>
-                <a href="#" data-bs-toggle="collapse" data-bs-target="#brandList" data-target-id=2>Табаки</a>
+                <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tobaccoList" data-target-id=1>Табаки</a>
+                <a href="#" data-bs-toggle="collapse" data-bs-target="#brandList" data-target-id=2>Бренды</a>
                 <a href="#" data-bs-toggle="collapse" data-bs-target="#bowlsList" data-target-id=3>Чаши</a>
             </div>
 
@@ -136,8 +137,8 @@
                     <select id="tobaccoInput" name="tobacco">
                         <option disabled selected>Бренд</option>
                         <option value="Nual">Nual</option>
-                        <option value="a">Serbetli</option>
-                        <option value="b">Element</option>
+                        <option value="Serbetli">Serbetli</option>
+                        <option value="Element">Element</option>
                     </select>
                     <span><i class="fa fa-chevron-down"></i></span>
                 </div>
@@ -161,9 +162,14 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="hookah_id" id="hookah_id">
-        <button id="saveItemButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
-        <a href="#" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s">Удалить</a>
+        <input type="hidden" id="hookah_id">
+        <button id="createTobaccoButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
+        <button id="saveTobaccoButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+    </form>
+    <form method="POST" id="hookahDeleteForm">
+        @csrf
+        @method('DELETE')
+        <button id="deleteTobaccoButton" onclick="return false" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
     </form>
     </div>
 </div>
@@ -171,25 +177,8 @@
 
 <script>
 jQuery(document).ready(function() {
-    $('#addNewItem').click(function(){
-        var category = $('[data-bs-target="#tobaccoList"].bg-highlight.no-click').attr("data-target-id");
-
-        switch(category) {
-        case '1':
-            alert(category)
-            break;
-
-        case '2':
-            alert(category)
-            break;
-
-        case '3':
-            alert(category)
-            break;
-        }
-    })
-
-    $('#saveItemButton').click(function(){
+  // save hookah
+    $('#saveTobaccoButton').click(function(){
         var id = $(this).attr('itemID');
         $.ajax({
             type:'POST',
@@ -202,15 +191,19 @@ jQuery(document).ready(function() {
                 location.reload();
             }
         });
-
     });
 
+  // when clicked on created hookah
     $('[data-menu="menu-cart-item"').click(function(){
+        $("#createTobaccoButton").hide();
+        $('#saveTobaccoButton').show();
+        $('#deleteTobaccoButton').show();
         $('.menu-hider.menu-active').hide();
         $('#menu-cart-item').hide();
         var id = $(this).attr('hookah_id');
 
-        $("#saveItemButton").attr('itemID', id)
+        $("#saveTobaccoButton").attr('itemID', id)
+        $("#deleteTobaccoButton").attr('delete_hookah_id', id)
 
         $.ajax({
             type:'POST',
@@ -221,6 +214,7 @@ jQuery(document).ready(function() {
             },
             success:function(data){
                 $("#titleInput").val(data.title);
+                $("#hookah_id").attr('name', 'hookah_id');
                 $("#hookah_id").val(data.id);
                 $('#tobaccoInput').val(data.tobacco);
                 $('#strengthInput').val(data.strength);
@@ -231,6 +225,63 @@ jQuery(document).ready(function() {
                 $('#menu-cart-item').show();
             }
         });
+    })
+
+  // create hookah
+    $('#createTobaccoButton').click(function(){
+        var id = $(this).attr('itemID');
+        $.ajax({
+            type:'POST',
+            url:'{{ route("admin.hookah.store") }}',
+            data: $('#hookahForm').serialize(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                location.reload();
+            }
+        });
+    });
+
+  // delete hookah
+  $('#deleteTobaccoButton').click(function(){
+        var id = $(this).attr('delete_hookah_id');
+        $.ajax({
+            type:'POST',
+            url:'{{ route("admin.hookah.destroy") }}',
+            data: {id:id},
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                location.reload();
+            }
+        });
+    });
+
+  // add new item button clicked
+    $('#addNewItem').click(function(){
+        // find chosen category
+        var category = $('[data-bs-target="#tobaccoList"].bg-highlight.no-click').attr("data-target-id");
+
+        switch(category) {
+        case '1':
+            $('[data-menu="menu-cart-item"]')[0].click();
+            $('#tobaccoProduct').text('Новый');
+            $('#nameOfProduct').text('Табак');
+            $('#createTobaccoButton').show();
+            $('#saveTobaccoButton').hide();
+            $('#deleteTobaccoButton').hide();
+            break;
+
+        case '2':
+            alert(category)
+            break;
+
+        case '3':
+            alert(category)
+            break;
+        }
     })
 })
 </script>
