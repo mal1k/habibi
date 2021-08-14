@@ -59,6 +59,7 @@ use Illuminate\Support\Facades\Route;
       // tobacco handlers
         Route::prefix('tobacco')->group(function () {
             Route::post('/get', [tobaccoController::class, 'get'])->name('admin.tobacco.get');
+            Route::post('/update', [tobaccoController::class, 'update'])->name('admin.tobacco.update');
         });
     });
   });
