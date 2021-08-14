@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\hookah;
+use App\Models\tobacco;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -18,7 +19,11 @@ class hookahController extends Controller
     {
         $hookahs_query = hookah::orderByDesc('id');
         $hookahs = $hookahs_query->paginate(0);
-        return view('admin.hookah.dashboard', compact('hookahs'));
+
+        $tobacco_query = tobacco::orderByDesc('id');
+        $tobacco = $tobacco_query->paginate(0);
+
+        return view('admin.hookah.dashboard', compact('hookahs', 'tobacco'));
     }
 
     public function get(Request $request)
