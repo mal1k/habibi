@@ -9,7 +9,7 @@ class tobaccoController extends Controller
 {
     public function get(Request $request)
     {
-        $hookah = tobacco::where('id' , '=' , $request->id )->first();
-        return json_decode($hookah);
+        $tobacco = tobacco::where('id' , '=' , $request->id )->first();
+        return json_decode($tobacco);
     }
 }
