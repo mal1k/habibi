@@ -9,14 +9,16 @@
 
 @section('content')
 <div data-menu="menu-cart-item"></div>
+<div data-menu="menu-tobacco-item"></div>
+
 <div class="header-clear-medium">
 <div id="page">
     <div class="card card-style mt-3">
         <div class="content mb-0 mt-3" id="tobacco">
             <div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
-                <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tobaccoList" data-target-id=1>Табаки</a>
-                <a href="#" data-bs-toggle="collapse" data-bs-target="#brandList" data-target-id=2>Бренды</a>
-                <a href="#" data-bs-toggle="collapse" data-bs-target="#bowlsList" data-target-id=3>Чаши</a>
+                <a href="#" data-active data-bs-toggle="collapse" choose-category="cat" data-bs-target="#tobaccoList" data-target-id=1>Табаки</a>
+                <a href="#" data-bs-toggle="collapse" choose-category="cat" data-bs-target="#brandList" data-target-id=2>Бренды</a>
+                <a href="#" data-bs-toggle="collapse" choose-category="cat" data-bs-target="#bowlsList" data-target-id=3>Чаши</a>
             </div>
 
             <div class="clearfix mb-4"></div>
@@ -42,7 +44,7 @@
                                         <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
                                         <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
                                     </div>
-                                    <div class="ms-auto ps-5 align-self-center text-center">
+                                    <div class="ms-auto align-self-center text-center">
                                         <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
                                         <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
                                     </div>
@@ -63,7 +65,7 @@
                                         <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
                                         <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
                                     </div>
-                                    <div class="ms-auto ps-5 align-self-center text-center">
+                                    <div class="ms-auto align-self-center text-center">
                                         <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
                                         <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
                                     </div>
@@ -84,7 +86,7 @@
                                         <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
                                         <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
                                     </div>
-                                    <div class="ms-auto ps-5 align-self-center text-center">
+                                    <div class="ms-auto align-self-center text-center">
                                         <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
                                         <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
                                     </div>
@@ -107,6 +109,7 @@
 </div>
 </div>
 
+<!-- hookah -->
 <div id="menu-cart-item"
         class="menu menu-box-modal rounded-m bg-theme"
         data-menu-width="350"
@@ -173,7 +176,55 @@
     </form>
     </div>
 </div>
-<!-- Page content ends here-->
+
+<!-- tobacco -->
+<div id="menu-tobacco-item"
+        class="menu menu-box-modal rounded-m bg-theme"
+        data-menu-width="350"
+        data-menu-height="310">
+    <div class="menu-title">
+        <p class="color-highlight" id="tobaccoP">Редактирование</p>
+        <h1 class="font-22" id="nameOfBrand">[[ НАЗВАНИЕ БРЕНДА ]]</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+    </div>
+
+    <div class="content">
+
+        <div id="form"></div>
+
+    <form method="POST" id="hookahForm" enctype="multipart/form-data">
+        @csrf
+
+        <div class="row mb-0">
+            <div class="file-data pb-5">
+                <input type="file" class="upload-file bg-highlight shadow-s rounded-s" name="left_block_img" accept=".png, .jpg, .jpeg">
+                <p class="upload-file-text color-white">Выбрать картинку</p>
+            </div>
+            <div class="col-8">
+                <div class="input-style has-borders mb-4">
+                    <input type="text" name="title" class="form-control" id="titleInput" placeholder="Название бренда">
+                    <label for="titleInput" class="color-highlight">Название бренда</label>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-style has-borders mb-4">
+                    <input type="number" name="price" class="form-control" id="priceInput" placeholder="Цена">
+                    <label for="priceInput" class="color-highlight">Цена</label>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hookah_id">
+        <button id="createBrandButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
+        <button id="saveBrandButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+    </form>
+    <form method="POST" id="hookahDeleteForm">
+        @csrf
+        @method('DELETE')
+        <button id="deleteBrandButton" onclick="return false" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
+    </form>
+    </div>
+</div>
+
 
 <script>
 jQuery(document).ready(function() {
@@ -244,7 +295,7 @@ jQuery(document).ready(function() {
     });
 
   // delete hookah
-  $('#deleteTobaccoButton').click(function(){
+    $('#deleteTobaccoButton').click(function(){
         var id = $(this).attr('delete_hookah_id');
         $.ajax({
             type:'POST',
@@ -262,7 +313,7 @@ jQuery(document).ready(function() {
   // add new item button clicked
     $('#addNewItem').click(function(){
         // find chosen category
-        var category = $('[data-bs-target="#tobaccoList"].bg-highlight.no-click').attr("data-target-id");
+        var category = $('[choose-category="cat"].bg-highlight.no-click').attr("data-target-id");
 
         switch(category) {
         case '1':
@@ -275,7 +326,12 @@ jQuery(document).ready(function() {
             break;
 
         case '2':
-            alert(category)
+            $('[data-menu="menu-tobacco-item"]')[0].click();
+            $('#tobaccoP').text('Новый');
+            $('#nameOfBrand').text('Бренд');
+            $('#createBrandButton').show();
+            $('#saveBrandButton').hide();
+            $('#deleteBrandButton').hide();
             break;
 
         case '3':
@@ -283,6 +339,16 @@ jQuery(document).ready(function() {
             break;
         }
     })
+
+  // save tobacco
+
+
+  // when clicked on created tobacco
+
+  // create tobacco
+
+  // delete tobacco
+
 })
 </script>
 
