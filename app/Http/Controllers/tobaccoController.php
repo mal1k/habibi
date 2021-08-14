@@ -14,6 +14,11 @@ class tobaccoController extends Controller
     }
 
     // create
+    public function store(Request $request)
+    {
+        tobacco::create($request->all()); // create tobacco
+        return 'ok';
+    }
 
     // update
     public function update(Request $request)
