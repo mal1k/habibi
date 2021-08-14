@@ -101,7 +101,7 @@
             <div data-bs-parent="#tobacco" class="collapse" id="brandList">
                 @isset ( $tobacco )
                     @foreach ($tobacco as $item)
-                    <div class="d-flex mb-4" item_id="{{ $item->id }}" data-menu="menu-tobacco-item">
+                    <div class="d-flex mb-4" tobacco_id="{{ $item->id }}" data-menu="menu-tobacco-item">
                         <div class="align-self-center">
                             <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                         </div>
@@ -218,13 +218,13 @@
             </div>
             <div class="col-8">
                 <div class="input-style has-borders mb-4">
-                    <input type="text" name="title" class="form-control" id="titleInput" placeholder="Название бренда">
+                    <input type="text" name="title" class="form-control" id="titleBrandInput" placeholder="Название бренда">
                     <label for="titleInput" class="color-highlight">Название бренда</label>
                 </div>
             </div>
             <div class="col-4">
                 <div class="input-style has-borders mb-4">
-                    <input type="number" name="price" class="form-control" id="priceInput" placeholder="Цена">
+                    <input type="number" name="price" class="form-control" id="priceBrandInput" placeholder="Цена">
                     <label for="priceInput" class="color-highlight">Цена</label>
                 </div>
             </div>
@@ -361,13 +361,12 @@ jQuery(document).ready(function() {
 
   // when clicked on created tobacco
   $('[data-menu="menu-tobacco-item"').click(function(){
-      alert('test')
         $("#createBrandButton").hide();
         $('#saveBrandButton').show();
         $('#deleteBrandButton').show();
         $('.menu-hider.menu-active').hide();
         $('#menu-tobacco-item').hide();
-        var id = $(this).attr('hookah_id');
+        var id = $(this).attr('tobacco_id');
 
         $("#saveTobaccoButton").attr('itemID', id)
         $("#deleteTobaccoButton").attr('delete_hookah_id', id)
@@ -380,14 +379,10 @@ jQuery(document).ready(function() {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success:function(data){
-                $("#titleInput").val(data.title);
-                $("#hookah_id").attr('name', 'hookah_id');
-                $("#hookah_id").val(data.id);
-                $('#tobaccoInput').val(data.tobacco);
-                $('#strengthInput').val(data.strength);
-                $('#priceInput').val(data.price);
-                $('#nameOfProduct').text(data.title);
-                $('#tobaccoProduct').text(data.tobacco);
+                $('#nameOfBrand').text(data.title);
+                $('#tobaccoP').text('Бренд');
+                $('#titleBrandInput').val(data.title);
+                $('#priceBrandInput').val(data.price);
                 $('.menu-hider.menu-active').show();
                 $('#menu-tobacco-item').show();
             }
