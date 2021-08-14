@@ -23,7 +23,7 @@
 
             <div class="clearfix mb-4"></div>
             <div data-bs-parent="#tobacco" class="collapse show" id="tobaccoList">
-                <div class="card card-style">
+                <div class="card mt-n3">
                     <div class="content mb-0" id="tab-group-1">
                         <div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
                             <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tab-1ab">Легкие</a>
@@ -46,7 +46,16 @@
                                     </div>
                                     <div class="ms-auto align-self-center text-center">
                                         <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                                        <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
+                                        <h2 class="font-15 mb-0" id="price_">
+                                            @if ( isset($hookah->price) )
+                                                {{ $hookah->price }}
+                                            @else
+                                                @foreach ( $tobacco as $item )
+                                                    @if ( $item->title == $hookah->tobacco )
+                                                        {{ $item->price }}
+                                                    @endif
+                                                @endforeach
+                                            @endif ₴</h2>
                                     </div>
                                 </div>
                                 @endif
@@ -155,9 +164,11 @@
                     <label for="tobaccoInput" class="color-highlight">Бренд</label>
                     <select id="tobaccoInput" name="tobacco">
                         <option disabled selected>Бренд</option>
-                        <option value="Nual">Nual</option>
-                        <option value="Serbetli">Serbetli</option>
-                        <option value="Element">Element</option>
+                    @isset($tobacco)
+                        @foreach ( $tobacco as $item )
+                        <option value="{{ $item->title }}">{{ $item->title }}</option>
+                        @endforeach
+                    @endisset
                     </select>
                     <span><i class="fa fa-chevron-down"></i></span>
                 </div>
@@ -208,32 +219,33 @@
 
         <div id="form"></div>
 
-    <form method="POST" id="hookahForm" enctype="multipart/form-data">
+    <form method="POST" id="brandForm" enctype="multipart/form-data">
         @csrf
+
+        <input type="hidden" id="tobacco_id">
 
         <div class="row mb-0">
             <div class="file-data pb-5">
-                <input type="file" class="upload-file bg-highlight shadow-s rounded-s" name="left_block_img" accept=".png, .jpg, .jpeg">
+                <input type="file" id="brandImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
                 <p class="upload-file-text color-white">Выбрать картинку</p>
             </div>
             <div class="col-8">
                 <div class="input-style has-borders mb-4">
-                    <input type="text" name="title" class="form-control" id="titleBrandInput" placeholder="Название бренда">
+                    <input type="text" name="title" class="form-control" id="titleBrandInput" placeholder="Название бренда" required>
                     <label for="titleInput" class="color-highlight">Название бренда</label>
                 </div>
             </div>
             <div class="col-4">
                 <div class="input-style has-borders mb-4">
-                    <input type="number" name="price" class="form-control" id="priceBrandInput" placeholder="Цена">
+                    <input type="number" name="price" class="form-control" id="priceBrandInput" placeholder="Цена" required>
                     <label for="priceInput" class="color-highlight">Цена</label>
                 </div>
             </div>
         </div>
-        <input type="hidden" id="hookah_id">
         <button id="createBrandButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
         <button id="saveBrandButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
     </form>
-    <form method="POST" id="hookahDeleteForm">
+    <form method="POST" id="brandDeleteForm">
         @csrf
         @method('DELETE')
         <button id="deleteBrandButton" onclick="return false" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
@@ -357,7 +369,20 @@ jQuery(document).ready(function() {
     })
 
   // save tobacco
-
+    $('#saveBrandButton').click(function(){
+        var id = $(this).attr('itemID');
+        $.ajax({
+            type:'POST',
+            url:'{{ route("admin.tobacco.update") }}',
+            data: $('#brandForm').serialize(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                location.reload();
+            }
+        });
+    });
 
   // when clicked on created tobacco
   $('[data-menu="menu-tobacco-item"').click(function(){
@@ -368,8 +393,8 @@ jQuery(document).ready(function() {
         $('#menu-tobacco-item').hide();
         var id = $(this).attr('tobacco_id');
 
-        $("#saveTobaccoButton").attr('itemID', id)
-        $("#deleteTobaccoButton").attr('delete_hookah_id', id)
+        $("#saveBrandButton").attr('itemID', id)
+        $("#deleteBrandButton").attr('delete_tobacco_id', id)
 
         $.ajax({
             type:'POST',
@@ -383,6 +408,10 @@ jQuery(document).ready(function() {
                 $('#tobaccoP').text('Бренд');
                 $('#titleBrandInput').val(data.title);
                 $('#priceBrandInput').val(data.price);
+
+                $("#tobacco_id").attr('name', 'tobacco_id');
+                $("#tobacco_id").val(id);
+
                 $('.menu-hider.menu-active').show();
                 $('#menu-tobacco-item').show();
             }
@@ -390,9 +419,36 @@ jQuery(document).ready(function() {
     })
 
   // create tobacco
+    $('#createBrandButton').click(function(){
+        var id = $(this).attr('itemID');
+        $.ajax({
+            type:'POST',
+            url:'{{ route("admin.tobacco.store") }}',
+            data: $('#brandForm').serialize(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                location.reload();
+            }
+        });
+    });
 
   // delete tobacco
-
+    $('#deleteBrandButton').click(function(){
+        var id = $(this).attr('delete_tobacco_id');
+        $.ajax({
+            type:'POST',
+            url:'{{ route("admin.tobacco.destroy") }}',
+            data: {id:id},
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                location.reload();
+            }
+        });
+    });
 })
 </script>
 
