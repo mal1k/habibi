@@ -12,4 +12,14 @@ class tobaccoController extends Controller
         $tobacco = tobacco::where('id' , '=' , $request->id )->first();
         return json_decode($tobacco);
     }
+
+    // create
+
+    // update
+    public function update(Request $request)
+    {
+        $tobacco = tobacco::where('id' , '=' , $request->tobacco_id )->first();
+        $tobacco->update($request->all());
+        return 'ok';
+    }
 }
