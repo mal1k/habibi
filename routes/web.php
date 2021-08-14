@@ -61,6 +61,7 @@ use Illuminate\Support\Facades\Route;
             Route::post('/get', [tobaccoController::class, 'get'])->name('admin.tobacco.get');
             Route::post('/store', [tobaccoController::class, 'store'])->name('admin.tobacco.store');
             Route::post('/update', [tobaccoController::class, 'update'])->name('admin.tobacco.update');
+            Route::post('/destroy', [tobaccoController::class, 'destroy'])->name('admin.tobacco.destroy');
         });
     });
   });
