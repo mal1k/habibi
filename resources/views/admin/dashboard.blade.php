@@ -9,7 +9,7 @@
 <div class="header-clear-medium">
 <div id="page">
 
-    <div class="card card-style">
+    <div class="card card-style mt-3">
         <div class="content mb-0">
             <p class="text-center mb-n1 font-12 font-600 color-highlight">Popularity in 2020</p>
             <h1 class="text-center font-28 mb-4">Mobile OS</h1>

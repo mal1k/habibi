@@ -7585,3 +7585,11 @@ input[type=number] {
 .slider-cover-dots .splide__pagination {
   transform: translate(-50%, -40px) !important;
 }
+
+.mb-100 {
+    margin-bottom: 100px;
+}
+
+.d-grid {
+    display: grid;
+}

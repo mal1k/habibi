@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('styles/style.css') }}">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ URL::asset('fonts/css/fontawesome-all.min.css') }}">
-<link rel="manifest" href="{{ URL::asset('_manifest.json') }}" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel="manifest" href="{{ URL::asset('admin/_manifest.json') }}" data-pwa-version="set_in_manifest_and_pwa_js">
 <link rel="apple-touch-icon" sizes="180x180" href="{{ URL::asset('app/icons/icon-192x192.png') }}">
 <link rel="stylesheet" class="page-highlight" type="text/css" href="{{ URL::asset('styles/highlights/highlight_red.css') }}">
 
@@ -28,12 +28,19 @@
 
 <div id="page">
 
-    <div class="header header-fixed header-logo-center">
+    <!-- <div class="header header-fixed header-logo-center">
         <span class="header-title">
             <img src="{{ asset('images/logo.jfif') }}" height="49px" alt="">
         </span>
         <a href="#" data-toggle-theme class="header-icon header-icon-1 show-on-theme-dark"><i class="fas fa-sun"></i></a>
         <a href="#" data-toggle-theme class="header-icon header-icon-1 show-on-theme-light"><i class="fas fa-moon"></i></a>
+        @yield('buttons')
+    </div> -->
+
+    <div class="page-title page-title-fixed">
+        <h1>@yield('title')</h1>
+        <a href="#" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-light" data-toggle-theme><i class="fa fa-moon"></i></a>
+        <a href="#" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-dark" data-toggle-theme><i class="fa fa-lightbulb color-yellow-dark"></i></a>
         @yield('buttons')
     </div>
 
@@ -41,7 +48,7 @@
     <div id="footer-bar" class="footer-bar-6">
         <a href="{{ route('admin.hookah.index') }}" class="@if (app()->view->getSections()['menu-num'] == 1) active-nav @endif"><i class="fa fa-layer-group"></i><span>Кальяны</span></a>
         <a href="index-pages.html" class="@if (app()->view->getSections()['menu-num'] == 2) active-nav @endif"><i class="fa fa-file"></i><span>Бар</span></a>
-        <a href="{{ route('admin.index') }}" class="circle-nav @if (app()->view->getSections()['menu-num'] == 3) active-nav @endif"><i class="fa fa-home"></i><span>Главная</span></a>
+        <a href="{{ route('admin.home.dashboard') }}" class="circle-nav @if (app()->view->getSections()['menu-num'] == 3) active-nav @endif"><i class="fa fa-home"></i><span>Главная</span></a>
         <a href="index-projects.html" class="@if (app()->view->getSections()['menu-num'] == 4) active-nav @endif"><i class="fa fa-camera"></i><span>Услуги</span></a>
         <a href="#" data-menu="menu-main" class="@if (app()->view->getSections()['menu-num'] == 5) active-nav @endif"><i class="fa fa-bars"></i><span>С собой</span></a>
     </div>

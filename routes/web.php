@@ -3,6 +3,7 @@
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hookahController;
 use App\Models\home;
+use App\Models\hookah;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +32,8 @@ use Illuminate\Support\Facades\Route;
       // dashboard
         Route::get('/dashboard', function() {
             $home = home::first();
-            return view('admin.dashboard', compact('home'));
-        })->name('admin.index');
+            return view('admin.home.dashboard', compact('home'));
+        })->name('admin.home.dashboard');
       // home editor link
         Route::get('/home', [homeController::class, 'index'])->name('admin.home.index');
       // hookah editor link
@@ -49,10 +50,10 @@ use Illuminate\Support\Facades\Route;
             Route::post('/update', [homeController::class, 'update'])->name('admin.home.update');
         });
       // hookah handlers
-        // Route::prefix('hookah')->group(function () {
-        //   Route::post('/store', [homeController::class, 'store'])->name('admin.hookah.store');
-        //   Route::post('/update', [homeController::class, 'update'])->name('admin.hookah.update');
-        // });
+        Route::prefix('hookah')->group(function () {
+          Route::post('/store', [hookahController::class, 'store'])->name('admin.hookah.store');
+          Route::post('/update', [hookahController::class, 'update'])->name('admin.hookah.update');
+        });
     });
   });
 
@@ -65,7 +66,10 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/hookahs', function () {
         $home = home::first();
-        return view('hookahs', compact('home'));
+        $hookahs_query = hookah::orderByDesc('id');
+        $hookahs = $hookahs_query->paginate(0);
+
+        return view('hookahs', compact('home', 'hookahs'));
     })->name('menu.hookahs');
 
     Route::get('/bar', function () {

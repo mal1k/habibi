@@ -42,22 +42,15 @@ class homeController extends Controller
      */
     public function update(Request $request)
     {
-      $request->validate([
-        'left_block_img' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'upper_block_img' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'central_block_img' => 'image|mimes:jpeg,png,jpg|max:2048',
-        'lower_block_img' => 'image|mimes:jpeg,png,jpg|max:2048',
-      ]);
-
        home::first()->update($request->all());
 
-        // update left block img
+        // update images
             foreach ( $request->file() as $name => $path ) { // update cover
                 $path = $request->file($name)->store('home', 'public'); // upload cover to server
                 home::first()->update([ "$name" => "$path" ]);
             }
 
 
-        return redirect()->route('admin.index')->with('alert-success', ' Success');
+        return redirect()->route('admin.home.dashboard')->with('alert-success', ' Success');
     }
 }

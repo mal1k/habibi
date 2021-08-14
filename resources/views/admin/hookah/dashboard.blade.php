@@ -4,7 +4,7 @@
 @section('title') Кальяны @endsection
 
 @section('buttons')
-<a href="#" id="addNewItem" class="header-icon header-icon-4"><i class="fa fa-plus color-red-dark"></i></a>
+<a href="#" id="addNewItem" class="page-title-icon shadow-xl bg-theme color-theme show-on-theme-dark" data-toggle-theme><i class="fa fa-plus color-red-dark"></i></a>
 @endsection
 
 @section('content')
@@ -106,6 +106,69 @@
 </div>
 </div>
 
+<div id="menu-cart-item"
+        class="menu menu-box-modal rounded-m bg-theme"
+        data-menu-width="350"
+        data-menu-height="310">
+    <div class="menu-title">
+        <p class="color-highlight" id="tobaccoProduct">Редактирование</p>
+        <h1 class="font-22" id="nameOfProduct">[[ НАЗВАНИЕ ТАБАКА ]]</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+    </div>
+
+    <div class="content">
+
+        <div id="form"></div>
+
+    <form method="POST" id="hookahForm" enctype="multipart/form-data">
+        @csrf
+
+        <div class="row mb-0">
+            <div class="col-12">
+                <div class="input-style has-borders mb-4">
+                    <input type="text" name="title" class="form-control" id="titleInput" placeholder="Название табака">
+                    <label for="titleInput" class="color-highlight">Название табака</label>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-style has-borders no-icon mb-4">
+                    <label for="tobaccoInput" class="color-highlight">Бренд</label>
+                    <select id="tobaccoInput" name="tobacco">
+                        <option disabled selected>Бренд</option>
+                        <option value="Nual">Nual</option>
+                        <option value="a">Serbetli</option>
+                        <option value="b">Element</option>
+                    </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-style has-borders no-icon mb-4">
+                    <label for="strengthInput" class="color-highlight">Крепость</label>
+                    <select id="strengthInput" name="strength">
+                        <option disabled selected>Крепость</option>
+                        <option value="1">Легкий</option>
+                        <option value="2">Средний</option>
+                        <option value="3">Тяжелый</option>
+                    </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-style has-borders mb-4">
+                    <input type="number" name="price" class="form-control" id="priceInput" placeholder="Цена">
+                    <label for="priceInput" class="color-highlight">Цена</label>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="hookah_id" id="hookah_id">
+        <button id="saveItemButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+        <a href="#" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s">Удалить</a>
+    </form>
+    </div>
+</div>
+<!-- Page content ends here-->
+
 <script>
 jQuery(document).ready(function() {
     $('#addNewItem').click(function(){
@@ -126,11 +189,28 @@ jQuery(document).ready(function() {
         }
     })
 
+    $('#saveItemButton').click(function(){
+        var id = $(this).attr('itemID');
+        $.ajax({
+            type:'POST',
+            url:'{{ route("admin.hookah.update") }}',
+            data: $('#hookahForm').serialize(),
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success:function(data){
+                location.reload();
+            }
+        });
+
+    });
 
     $('[data-menu="menu-cart-item"').click(function(){
         $('.menu-hider.menu-active').hide();
         $('#menu-cart-item').hide();
         var id = $(this).attr('hookah_id');
+
+        $("#saveItemButton").attr('itemID', id)
 
         $.ajax({
             type:'POST',
@@ -141,9 +221,12 @@ jQuery(document).ready(function() {
             },
             success:function(data){
                 $("#titleInput").val(data.title);
+                $("#hookah_id").val(data.id);
                 $('#tobaccoInput').val(data.tobacco);
                 $('#strengthInput').val(data.strength);
                 $('#priceInput').val(data.price);
+                $('#nameOfProduct').text(data.title);
+                $('#tobaccoProduct').text(data.tobacco);
                 $('.menu-hider.menu-active').show();
                 $('#menu-cart-item').show();
             }
@@ -152,62 +235,4 @@ jQuery(document).ready(function() {
 })
 </script>
 
-
-
-<div id="menu-cart-item"
-        class="menu menu-box-modal rounded-m bg-theme"
-        data-menu-width="350"
-        data-menu-height="310">
-    <div class="menu-title">
-        <p class="color-highlight">Редактирование </p>
-        <h1 class="font-22" id="nameOfProduct">[[ НАЗВАНИЕ ТАБАКА ]]</h1>
-        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
-    </div>
-
-    <div class="content">
-        {{--  <div class="divider mt-n2"></div>  --}}
-
-        <div class="row mb-0">
-            <div class="col-12">
-                <div class="input-style has-borders mb-4">
-                    <input type="text" class="form-control" id="titleInput" placeholder="Название табака">
-                    <label for="titleInput" class="color-highlight">Название табака</label>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-style has-borders no-icon mb-4">
-                    <label for="tobaccoInput" class="color-highlight">Бренд</label>
-                    <select id="tobaccoInput">
-                        <option disabled selected>Бренд</option>
-                        <option value="z">Nual</option>
-                        <option value="a">Serbetli</option>
-                        <option value="b">Element</option>
-                    </select>
-                    <span><i class="fa fa-chevron-down"></i></span>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-style has-borders no-icon mb-4">
-                    <label for="strengthInput" class="color-highlight">Крепость</label>
-                    <select id="strengthInput">
-                        <option disabled selected>Крепость</option>
-                        <option value="z">Легкий</option>
-                        <option value="a">Средний</option>
-                        <option value="b">Тяжелый</option>
-                    </select>
-                    <span><i class="fa fa-chevron-down"></i></span>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-style has-borders mb-4">
-                    <input type="number" class="form-control" id="priceInput" placeholder="Цена">
-                    <label for="priceInput" class="color-highlight">Цена</label>
-                </div>
-            </div>
-        </div>
-        <a href="#" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s">Сохранить</a>
-        <a href="#" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s">Удалить</a>
-    </div>
-</div>
-<!-- Page content ends here-->
 @endsection

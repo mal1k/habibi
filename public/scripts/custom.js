@@ -522,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         //File Upload
-        const inputArray = document.getElementsByClassName('upload-file');
+        const inputArray = document.getElementsByClassName('upload-file-test');
         if(inputArray.length){
             inputArray[0].addEventListener('change',prepareUpload,false);
                 function prepareUpload(event){
