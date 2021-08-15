@@ -38,7 +38,17 @@
                                 @if ( $hookah->strength == 1 )
                                 <div class="d-flex mb-4" hookah_id="{{ $hookah->id }}" data-menu="menu-cart-item">
                                     <div class="align-self-center">
-                                        <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                                        <img
+                                        @if ( isset($hookah->image) )
+                                            src="{{ asset('/storage/' . $hookah->image) }}"
+                                        @else
+                                            @foreach ( $tobacco as $item )
+                                                @if ( $item->title == $hookah->tobacco )
+                                                    src="{{ asset('/storage/' . $item->image) }}"
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                                     </div>
                                     <div class="align-self-center">
                                         <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
@@ -68,7 +78,17 @@
                                 @if ( $hookah->strength == 2 )
                                 <div class="d-flex mb-4" hookah_id="{{ $hookah->id }}" data-menu="menu-cart-item">
                                     <div class="align-self-center">
-                                        <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                                        <img
+                                        @if ( isset($hookah->image) )
+                                            src="{{ asset('/storage/' . $hookah->image) }}"
+                                        @else
+                                            @foreach ( $tobacco as $item )
+                                                @if ( $item->title == $hookah->tobacco )
+                                                    src="{{ asset('/storage/' . $item->image) }}"
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                                     </div>
                                     <div class="align-self-center">
                                         <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
@@ -76,7 +96,16 @@
                                     </div>
                                     <div class="ms-auto align-self-center text-center">
                                         <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                                        <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
+                                        <h2 class="font-15 mb-0" id="price_">
+                                            @if ( isset($hookah->price) )
+                                                {{ $hookah->price }}
+                                            @else
+                                                @foreach ( $tobacco as $item )
+                                                    @if ( $item->title == $hookah->tobacco )
+                                                        {{ $item->price }}
+                                                    @endif
+                                                @endforeach
+                                            @endif ₴</h2>
                                     </div>
                                 </div>
                                 @endif
@@ -89,7 +118,17 @@
                                 @if ( $hookah->strength == 3 )
                                 <div class="d-flex mb-4" hookah_id="{{ $hookah->id }}" data-menu="menu-cart-item">
                                     <div class="align-self-center">
-                                        <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                                        <img
+                                        @if ( isset($hookah->image) )
+                                            src="{{ asset('/storage/' . $hookah->image) }}"
+                                        @else
+                                            @foreach ( $tobacco as $item )
+                                                @if ( $item->title == $hookah->tobacco )
+                                                    src="{{ asset('/storage/' . $item->image) }}"
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                                     </div>
                                     <div class="align-self-center">
                                         <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
@@ -97,7 +136,16 @@
                                     </div>
                                     <div class="ms-auto align-self-center text-center">
                                         <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                                        <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
+                                        <h2 class="font-15 mb-0" id="price_">
+                                            @if ( isset($hookah->price) )
+                                                {{ $hookah->price }}
+                                            @else
+                                                @foreach ( $tobacco as $item )
+                                                    @if ( $item->title == $hookah->tobacco )
+                                                        {{ $item->price }}
+                                                    @endif
+                                                @endforeach
+                                            @endif ₴</h2>
                                     </div>
                                 </div>
                                 @endif
@@ -112,7 +160,7 @@
                     @foreach ($tobacco as $item)
                     <div class="d-flex mb-4" tobacco_id="{{ $item->id }}" data-menu="menu-tobacco-item">
                         <div class="align-self-center">
-                            <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                            <img src="{{ asset('/storage/' . $item->image) }}" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                         </div>
                         <div class="align-self-center">
                             <h1 class="color-highlight font-13 mb-n2">{{ $item->tobacco }}</h1>
@@ -193,13 +241,12 @@
             </div>
         </div>
         <input type="hidden" id="hookah_id">
-        <button id="createTobaccoButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
-        <button id="saveTobaccoButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+        <button id="createTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
+        <button id="saveTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
     </form>
     <form method="POST" id="hookahDeleteForm">
         @csrf
-        @method('DELETE')
-        <button id="deleteTobaccoButton" onclick="return false" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
+        <button id="deleteTobaccoButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
     </form>
     </div>
 </div>
@@ -242,13 +289,12 @@
                 </div>
             </div>
         </div>
-        <button id="createBrandButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
-        <button id="saveBrandButton" onclick="return false" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+        <button id="createBrandButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
+        <button id="saveBrandButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
     </form>
     <form method="POST" id="brandDeleteForm">
         @csrf
-        @method('DELETE')
-        <button id="deleteBrandButton" onclick="return false" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
+        <button id="deleteBrandButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
     </form>
     </div>
 </div>
@@ -256,21 +302,37 @@
 
 <script>
 jQuery(document).ready(function() {
-  // save hookah
-    $('#saveTobaccoButton').click(function(){
-        var id = $(this).attr('itemID');
-        $.ajax({
-            type:'POST',
-            url:'{{ route("admin.hookah.update") }}',
-            data: $('#hookahForm').serialize(),
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){
-                location.reload();
-            }
-        });
-    });
+  // add new item button clicked
+    $('#addNewItem').click(function(){
+        // find chosen category
+        var category = $('[choose-category="cat"].bg-highlight.no-click').attr("data-target-id");
+
+        switch(category) {
+        case '1':
+            $('[data-menu="menu-cart-item"]')[0].click();
+            $('#tobaccoProduct').text('Новый');
+            $('#nameOfProduct').text('Табак');
+            $('#createTobaccoButton').show();
+            $('#hookahForm').attr('action', '{{ route("admin.hookah.store") }}');
+            $('#saveTobaccoButton').hide();
+            $('#deleteTobaccoButton').hide();
+            break;
+
+        case '2':
+            $('[data-menu="menu-tobacco-item"]')[0].click();
+            $('#tobaccoP').text('Новый');
+            $('#nameOfBrand').text('Бренд');
+            $('#createBrandButton').show();
+            $('#brandForm').attr('action', '{{ route("admin.tobacco.store") }}');
+            $('#saveBrandButton').hide();
+            $('#deleteBrandButton').hide();
+            break;
+
+        case '3':
+            alert(category)
+            break;
+        }
+    })
 
   // when clicked on created hookah
     $('[data-menu="menu-cart-item"').click(function(){
@@ -280,9 +342,10 @@ jQuery(document).ready(function() {
         $('.menu-hider.menu-active').hide();
         $('#menu-cart-item').hide();
         var id = $(this).attr('hookah_id');
-
-        $("#saveTobaccoButton").attr('itemID', id)
-        $("#deleteTobaccoButton").attr('delete_hookah_id', id)
+        $('#hookahForm').attr('action', '/admin/hookah/update/'+id+'');
+        $('#hookahDeleteForm').attr('action', '/admin/hookah/destroy/'+id+'');
+        $("#saveTobaccoButton").attr('itemID', id);
+        $("#deleteTobaccoButton").attr('delete_hookah_id', id);
 
         $.ajax({
             type:'POST',
@@ -305,150 +368,41 @@ jQuery(document).ready(function() {
             }
         });
     })
-
-  // create hookah
-    $('#createTobaccoButton').click(function(){
-        var id = $(this).attr('itemID');
-        $.ajax({
-            type:'POST',
-            url:'{{ route("admin.hookah.store") }}',
-            data: $('#hookahForm').serialize(),
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){
-                location.reload();
-            }
-        });
-    });
-
-  // delete hookah
-    $('#deleteTobaccoButton').click(function(){
-        var id = $(this).attr('delete_hookah_id');
-        $.ajax({
-            type:'POST',
-            url:'{{ route("admin.hookah.destroy") }}',
-            data: {id:id},
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){
-                location.reload();
-            }
-        });
-    });
-
-  // add new item button clicked
-    $('#addNewItem').click(function(){
-        // find chosen category
-        var category = $('[choose-category="cat"].bg-highlight.no-click').attr("data-target-id");
-
-        switch(category) {
-        case '1':
-            $('[data-menu="menu-cart-item"]')[0].click();
-            $('#tobaccoProduct').text('Новый');
-            $('#nameOfProduct').text('Табак');
-            $('#createTobaccoButton').show();
-            $('#saveTobaccoButton').hide();
-            $('#deleteTobaccoButton').hide();
-            break;
-
-        case '2':
-            $('[data-menu="menu-tobacco-item"]')[0].click();
-            $('#tobaccoP').text('Новый');
-            $('#nameOfBrand').text('Бренд');
-            $('#createBrandButton').show();
-            $('#saveBrandButton').hide();
-            $('#deleteBrandButton').hide();
-            break;
-
-        case '3':
-            alert(category)
-            break;
-        }
-    })
-
-  // save tobacco
-    $('#saveBrandButton').click(function(){
-        var id = $(this).attr('itemID');
-        $.ajax({
-            type:'POST',
-            url:'{{ route("admin.tobacco.update") }}',
-            data: $('#brandForm').serialize(),
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){
-                location.reload();
-            }
-        });
-    });
-
   // when clicked on created tobacco
-  $('[data-menu="menu-tobacco-item"').click(function(){
-        $("#createBrandButton").hide();
-        $('#saveBrandButton').show();
-        $('#deleteBrandButton').show();
-        $('.menu-hider.menu-active').hide();
-        $('#menu-tobacco-item').hide();
-        var id = $(this).attr('tobacco_id');
+    $('[data-menu="menu-tobacco-item"').click(function(){
+            $("#createBrandButton").hide();
+            $('#saveBrandButton').show();
+            $('#deleteBrandButton').show();
+            $('.menu-hider.menu-active').hide();
+            $('#menu-tobacco-item').hide();
+            var id = $(this).attr('tobacco_id');
+            $('#brandForm').attr('action', '/admin/tobacco/update/'+id+'');
+            $('#brandDeleteForm').attr('action', '/admin/tobacco/destroy/'+id+'');
 
-        $("#saveBrandButton").attr('itemID', id)
-        $("#deleteBrandButton").attr('delete_tobacco_id', id)
+            $("#saveBrandButton").attr('itemID', id)
+            $("#deleteBrandButton").attr('delete_tobacco_id', id)
 
-        $.ajax({
-            type:'POST',
-            url:'{{ route("admin.tobacco.get") }}',
-            data:{id:id},
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){
-                $('#nameOfBrand').text(data.title);
-                $('#tobaccoP').text('Бренд');
-                $('#titleBrandInput').val(data.title);
-                $('#priceBrandInput').val(data.price);
+            $.ajax({
+                type:'POST',
+                url:'{{ route("admin.tobacco.get") }}',
+                data:{id:id},
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    $('#nameOfBrand').text(data.title);
+                    $('#tobaccoP').text('Бренд');
+                    $('#titleBrandInput').val(data.title);
+                    $('#priceBrandInput').val(data.price);
 
-                $("#tobacco_id").attr('name', 'tobacco_id');
-                $("#tobacco_id").val(id);
+                    $("#tobacco_id").attr('name', 'tobacco_id');
+                    $("#tobacco_id").val(id);
 
-                $('.menu-hider.menu-active').show();
-                $('#menu-tobacco-item').show();
-            }
-        });
-    })
-
-  // create tobacco
-    $('#createBrandButton').click(function(){
-        var id = $(this).attr('itemID');
-        $.ajax({
-            type:'POST',
-            url:'{{ route("admin.tobacco.store") }}',
-            data: $('#brandForm').serialize(),
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){
-                location.reload();
-            }
-        });
-    });
-
-  // delete tobacco
-    $('#deleteBrandButton').click(function(){
-        var id = $(this).attr('delete_tobacco_id');
-        $.ajax({
-            type:'POST',
-            url:'{{ route("admin.tobacco.destroy") }}',
-            data: {id:id},
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success:function(data){
-                location.reload();
-            }
-        });
-    });
+                    $('.menu-hider.menu-active').show();
+                    $('#menu-tobacco-item').show();
+                }
+            });
+        })
 })
 </script>
 

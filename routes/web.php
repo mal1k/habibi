@@ -6,6 +6,7 @@ use App\Http\Controllers\tobaccoController;
 use App\Models\home;
 use App\Models\hookah;
 use App\Models\User;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,15 +54,15 @@ use Illuminate\Support\Facades\Route;
         Route::prefix('hookah')->group(function () {
           Route::post('/get', [hookahController::class, 'get'])->name('admin.hookah.get');
           Route::post('/store', [hookahController::class, 'store'])->name('admin.hookah.store');
-          Route::post('/update', [hookahController::class, 'update'])->name('admin.hookah.update');
-          Route::post('/destroy', [hookahController::class, 'destroy'])->name('admin.hookah.destroy');
+          Route::post('/update/{id}', [hookahController::class, 'update'])->name('admin.hookah.update');
+          Route::post('/destroy/{id}', [hookahController::class, 'destroy'])->name('admin.hookah.destroy');
         });
       // tobacco handlers
         Route::prefix('tobacco')->group(function () {
             Route::post('/get', [tobaccoController::class, 'get'])->name('admin.tobacco.get');
             Route::post('/store', [tobaccoController::class, 'store'])->name('admin.tobacco.store');
-            Route::post('/update', [tobaccoController::class, 'update'])->name('admin.tobacco.update');
-            Route::post('/destroy', [tobaccoController::class, 'destroy'])->name('admin.tobacco.destroy');
+            Route::post('/update/{id}', [tobaccoController::class, 'update'])->name('admin.tobacco.update');
+            Route::post('/destroy/{id}', [tobaccoController::class, 'destroy'])->name('admin.tobacco.destroy');
         });
     });
   });

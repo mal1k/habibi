@@ -41,7 +41,7 @@ class hookahController extends Controller
     public function store(Request $request)
     {
         hookah::create($request->all()); // create tobacco
-        return 'ok';
+        return redirect()->route('admin.hookah.index')->withSuccess('Created tobacco "' . $request->title . '"');
     }
 
     /**
@@ -51,11 +51,11 @@ class hookahController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
-        $hookah = hookah::where('id' , '=' , $request->hookah_id )->first();
+        $hookah = hookah::where('id' , '=' , $id )->first();
         $hookah->update($request->all());
-        return 'ok';
+        return redirect()->route('admin.hookah.index')->withSuccess('Updated tobacco "' . $request->title . '"');
     }
 
     /**
@@ -64,10 +64,10 @@ class hookahController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
-        $hookah = hookah::where('id' , '=' , $request->id )->first();
+        $hookah = hookah::where('id' , '=' , $id )->first();
         $hookah->delete();
-        return 'ok';
+        return redirect()->route('admin.hookah.index')->withErrors('Removed tobacco "' . $hookah->title . '"');
     }
 }
