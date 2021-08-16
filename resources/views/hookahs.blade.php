@@ -39,15 +39,34 @@ true
                         @if ( $hookah->strength == 1 )
                         <div class="d-flex mb-4">
                             <div class="align-self-center">
-                                <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                                <img
+                                @if ( isset($hookah->image) )
+                                    src="{{ asset('/storage/' . $hookah->image) }}"
+                                @else
+                                    @foreach ( $tobacco as $item )
+                                        @if ( $item->title == $hookah->tobacco )
+                                            src="{{ asset('/storage/' . $item->image) }}"
+                                        @endif
+                                    @endforeach
+                                @endif
+                                class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                             </div>
                             <div class="align-self-center">
                                 <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
                                 <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
                             </div>
-                            <div class="ms-auto ps-5 align-self-center text-center">
+                            <div class="ms-auto align-self-center text-center">
                                 <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                                <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
+                                <h2 class="font-15 mb-0" id="price_">
+                                    @if ( isset($hookah->price) )
+                                        {{ $hookah->price }}
+                                    @else
+                                        @foreach ( $tobacco as $item )
+                                            @if ( $item->title == $hookah->tobacco )
+                                                {{ $item->price }}
+                                            @endif
+                                        @endforeach
+                                    @endif ₴</h2>
                             </div>
                         </div>
                         @endif
@@ -60,15 +79,34 @@ true
                         @if ( $hookah->strength == 2 )
                         <div class="d-flex mb-4">
                             <div class="align-self-center">
-                                <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                                <img
+                                @if ( isset($hookah->image) )
+                                    src="{{ asset('/storage/' . $hookah->image) }}"
+                                @else
+                                    @foreach ( $tobacco as $item )
+                                        @if ( $item->title == $hookah->tobacco )
+                                            src="{{ asset('/storage/' . $item->image) }}"
+                                        @endif
+                                    @endforeach
+                                @endif
+                                class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                             </div>
                             <div class="align-self-center">
                                 <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
                                 <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
                             </div>
-                            <div class="ms-auto ps-5 align-self-center text-center">
+                            <div class="ms-auto align-self-center text-center">
                                 <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                                <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
+                                <h2 class="font-15 mb-0" id="price_">
+                                    @if ( isset($hookah->price) )
+                                        {{ $hookah->price }}
+                                    @else
+                                        @foreach ( $tobacco as $item )
+                                            @if ( $item->title == $hookah->tobacco )
+                                                {{ $item->price }}
+                                            @endif
+                                        @endforeach
+                                    @endif ₴</h2>
                             </div>
                         </div>
                         @endif
@@ -81,15 +119,34 @@ true
                         @if ( $hookah->strength == 3 )
                         <div class="d-flex mb-4">
                             <div class="align-self-center">
-                                <img src="https://kalyan.perm.ru/wp-content/uploads/2020/06/Serbetli.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                                <img
+                                @if ( isset($hookah->image) )
+                                    src="{{ asset('/storage/' . $hookah->image) }}"
+                                @else
+                                    @foreach ( $tobacco as $item )
+                                        @if ( $item->title == $hookah->tobacco )
+                                            src="{{ asset('/storage/' . $item->image) }}"
+                                        @endif
+                                    @endforeach
+                                @endif
+                                class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                             </div>
                             <div class="align-self-center">
                                 <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
                                 <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
                             </div>
-                            <div class="ms-auto ps-5 align-self-center text-center">
+                            <div class="ms-auto align-self-center text-center">
                                 <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                                <h2 class="font-15 mb-0" id="price_">{{ $hookah->price }} ₴</h2>
+                                <h2 class="font-15 mb-0" id="price_">
+                                    @if ( isset($hookah->price) )
+                                        {{ $hookah->price }}
+                                    @else
+                                        @foreach ( $tobacco as $item )
+                                            @if ( $item->title == $hookah->tobacco )
+                                                {{ $item->price }}
+                                            @endif
+                                        @endforeach
+                                    @endif ₴</h2>
                             </div>
                         </div>
                         @endif

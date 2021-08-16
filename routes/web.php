@@ -5,6 +5,7 @@ use App\Http\Controllers\hookahController;
 use App\Http\Controllers\tobaccoController;
 use App\Models\home;
 use App\Models\hookah;
+use App\Models\tobacco;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
@@ -79,7 +80,10 @@ use Illuminate\Support\Facades\Route;
         $hookahs_query = hookah::orderByDesc('id');
         $hookahs = $hookahs_query->paginate(0);
 
-        return view('hookahs', compact('home', 'hookahs'));
+        $tobacco_query = tobacco::orderByDesc('id');
+        $tobacco = $tobacco_query->paginate(0);
+
+        return view('hookahs', compact('home', 'hookahs', 'tobacco'));
     })->name('menu.hookahs');
 
     Route::get('/bar', function () {
