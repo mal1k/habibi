@@ -10,6 +10,7 @@
 @section('content')
 <div data-menu="menu-cart-item"></div>
 <div data-menu="menu-tobacco-item"></div>
+<div data-menu="menu-bowls-item"></div>
 
 <div class="header-clear-medium">
 <div id="page">
@@ -227,11 +228,11 @@
                     <label for="tobaccoInput" class="color-highlight">Бренд</label>
                     <select id="tobaccoInput" name="tobacco">
                         <option disabled selected>Бренд</option>
-                    @isset($tobacco)
-                        @foreach ( $tobacco as $item )
-                        <option value="{{ $item->title }}">{{ $item->title }}</option>
-                        @endforeach
-                    @endisset
+                        @isset($tobacco)
+                            @foreach ( $tobacco as $item )
+                            <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @endforeach
+                        @endisset
                     </select>
                     <span><i class="fa fa-chevron-down"></i></span>
                 </div>
@@ -320,6 +321,7 @@
         data-menu-width="350"
         data-menu-height="310">
     <div class="menu-title">
+        <p class="color-highlight" id="bowlP">Редактирование</p>
         <h1 class="font-22" id="nameOfBowl">[[ НАЗВАНИЕ ЧАШИ ]]</h1>
         <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
     </div>
@@ -340,23 +342,23 @@
             </div>
             <div class="col-8">
                 <div class="input-style has-borders mb-4">
-                    <input type="text" name="title" class="form-control" id="titleBrandInput" placeholder="Тип чаши" required>
-                    <label for="titleInput" class="color-highlight">Тип чаши</label>
+                    <input type="text" name="title" class="form-control" id="titleBowlInput" placeholder="Тип чаши" required>
+                    <label for="titleBowlInput" class="color-highlight">Тип чаши</label>
                 </div>
             </div>
             <div class="col-4">
                 <div class="input-style has-borders mb-4">
-                    <input type="number" name="price" class="form-control" id="priceBrandInput" placeholder="Цена" required>
-                    <label for="priceInput" class="color-highlight">Цена</label>
+                    <input type="number" name="price" class="form-control" id="priceBowlInput" placeholder="Цена" required>
+                    <label for="priceBowlInput" class="color-highlight">Цена</label>
                 </div>
             </div>
         </div>
-        <button id="createbowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
-        <button id="savebowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+        <button id="createBowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
+        <button id="saveBowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
     </form>
     <form method="POST" id="bowlDeleteForm">
         @csrf
-        <button id="deletebowlButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
+        <button id="deleteBowlButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
     </form>
     </div>
 </div>
@@ -369,6 +371,8 @@ jQuery(document).ready(function() {
         var category = $('[choose-category="cat"].bg-highlight.no-click').attr("data-target-id");
 
         switch(category) {
+
+        // табаки
         case '1':
             $('[data-menu="menu-cart-item"]')[0].click();
             $('#tobaccoProduct').text('Новый');
@@ -379,6 +383,7 @@ jQuery(document).ready(function() {
             $('#deleteTobaccoButton').hide();
             break;
 
+        // бренды
         case '2':
             $('[data-menu="menu-tobacco-item"]')[0].click();
             $('#tobaccoP').text('Новый');
@@ -389,9 +394,11 @@ jQuery(document).ready(function() {
             $('#deleteBrandButton').hide();
             break;
 
+        // чаши
         case '3':
             $('[data-menu="menu-bowls-item"]')[0].click();
-            $('#nameOfBowl').text('Чаша');
+            $('#bowlP').text('Тип');
+            $('#nameOfBowl').text('Чаши');
             $('#createBowlButton').show();
             $('#bowlForm').attr('action', '{{ route("admin.bowls.store") }}');
             $('#saveBowlButton').hide();
@@ -400,7 +407,7 @@ jQuery(document).ready(function() {
         }
     })
 
-  // when clicked on created hookah
+  // click on created hookah
     $('[data-menu="menu-cart-item"').click(function(){
         $("#createTobaccoButton").hide();
         $('#saveTobaccoButton').show();
@@ -410,8 +417,6 @@ jQuery(document).ready(function() {
         var id = $(this).attr('hookah_id');
         $('#hookahForm').attr('action', '/admin/hookah/update/'+id+'');
         $('#hookahDeleteForm').attr('action', '/admin/hookah/destroy/'+id+'');
-        $("#saveTobaccoButton").attr('itemID', id);
-        $("#deleteTobaccoButton").attr('delete_hookah_id', id);
 
         $.ajax({
             type:'POST',
@@ -434,7 +439,7 @@ jQuery(document).ready(function() {
             }
         });
     })
-  // when clicked on created tobacco
+  // click on created tobacco
     $('[data-menu="menu-tobacco-item"').click(function(){
             $("#createBrandButton").hide();
             $('#saveBrandButton').show();
@@ -444,9 +449,6 @@ jQuery(document).ready(function() {
             var id = $(this).attr('tobacco_id');
             $('#brandForm').attr('action', '/admin/tobacco/update/'+id+'');
             $('#brandDeleteForm').attr('action', '/admin/tobacco/destroy/'+id+'');
-
-            $("#saveBrandButton").attr('itemID', id)
-            $("#deleteBrandButton").attr('delete_tobacco_id', id)
 
             $.ajax({
                 type:'POST',
@@ -460,10 +462,39 @@ jQuery(document).ready(function() {
                     $('#tobaccoP').text('Бренд');
                     $('#titleBrandInput').val(data.title);
                     $('#priceBrandInput').val(data.price);
-
                     $("#tobacco_id").attr('name', 'tobacco_id');
                     $("#tobacco_id").val(id);
+                    $('.menu-hider.menu-active').show();
+                    $('#menu-tobacco-item').show();
+                }
+            });
+        })
 
+  // click on created bowl
+    $('[data-menu="menu-bowls-item"').click(function(){
+            $("#createBowlButton").hide();
+            $('#saveBowlButton').show();
+            $('#deleteBowlButton').show();
+            $('.menu-hider.menu-active').hide();
+            $('#menu-tobacco-item').hide();
+            var id = $(this).attr('bowls_id');
+            $('#bowlForm').attr('action', '/admin/bowls/update/'+id+'');
+            $('#bowlDeleteForm').attr('action', '/admin/bowls/destroy/'+id+'');
+
+            $.ajax({
+                type:'POST',
+                url:'{{ route("admin.bowls.get") }}',
+                data:{id:id},
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    $('#nameOfBowl').text(data.title);
+                    $('#bowlP').text('Чаша');
+                    $('#titleBowlInput').val(data.title);
+                    $('#priceBowlInput').val(data.price);
+                    $("#tobacco_id").attr('name', 'tobacco_id');
+                    $("#tobacco_id").val(id);
                     $('.menu-hider.menu-active').show();
                     $('#menu-tobacco-item').show();
                 }
