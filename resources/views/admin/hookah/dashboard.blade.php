@@ -175,7 +175,22 @@
                 @endisset
             </div>
             <div data-bs-parent="#tobacco" class="collapse" id="bowlsList">
-                3
+                @isset ( $bowls )
+                    @foreach ($bowls as $item)
+                    <div class="d-flex mb-4" bowls_id="{{ $item->id }}" data-menu="menu-bowls-item">
+                        <div class="align-self-center">
+                            <img src="{{ asset('/storage/' . $item->image) }}" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                        </div>
+                        <div class="align-self-center">
+                            <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
+                        </div>
+                        <div class="ms-auto align-self-center text-center">
+                            <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
+                            <h2 class="font-15 mb-0" id="price_">{{ $item->price }} ₴</h2>
+                        </div>
+                    </div>
+                    @endforeach
+                @endisset
             </div>
         </div>
     </div>

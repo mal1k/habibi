@@ -1,10 +1,8 @@
 // Cache name
-var CACHE_NAME = 'Habibi-Cache-V10';
+var CACHE_NAME = 'Habibi-Cache-V11';
 
 // Files required to make this app work offline
-var REQUIRED_FILES = [
-    'index.html'
-];
+var REQUIRED_FILES = [];
 
 self.addEventListener('install', function(event) {
   // Perform install step:  loading each required file into cache

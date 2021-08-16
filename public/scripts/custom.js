@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Global Variables
     let isPWA = true;  // Enables or disables the service worker and PWA
     let isAJAX = true; // AJAX transitions. Requires local server or server
-    var pwaName = "Habibi"; // Local Storage Names for PWA
+    var pwaName = "Habibi-v1"; // Local Storage Names for PWA
     var pwaRemind = 0; //Days to re-remind to add to home
     var pwaNoCache = false; //Requires server and HTTPS/SSL. Will clear cache with each visit
 
