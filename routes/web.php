@@ -4,6 +4,7 @@ use App\Http\Controllers\bowlsController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hookahController;
 use App\Http\Controllers\tobaccoController;
+use App\Models\bowls;
 use App\Models\home;
 use App\Models\hookah;
 use App\Models\tobacco;
