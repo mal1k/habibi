@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bowls;
 use App\Models\hookah;
 use App\Models\tobacco;
 use App\Models\User;
@@ -23,7 +24,10 @@ class hookahController extends Controller
         $tobacco_query = tobacco::orderByDesc('id');
         $tobacco = $tobacco_query->paginate(0);
 
-        return view('admin.hookah.dashboard', compact('hookahs', 'tobacco'));
+        $bowls_query = bowls::orderByDesc('id');
+        $bowls = $bowls_query->paginate(0);
+
+        return view('admin.hookah.dashboard', compact('hookahs', 'tobacco', 'bowls'));
     }
 
     public function get(Request $request)

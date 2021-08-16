@@ -314,6 +314,52 @@
     </div>
 </div>
 
+<!-- bowls -->
+<div id="menu-bowls-item"
+        class="menu menu-box-modal rounded-m bg-theme"
+        data-menu-width="350"
+        data-menu-height="310">
+    <div class="menu-title">
+        <h1 class="font-22" id="nameOfBowl">[[ НАЗВАНИЕ ЧАШИ ]]</h1>
+        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+    </div>
+
+    <div class="content">
+
+        <div id="form"></div>
+
+    <form method="POST" id="bowlForm" enctype="multipart/form-data">
+        @csrf
+
+        <input type="hidden" id="bowl_id">
+
+        <div class="row mb-0">
+            <div class="file-data pb-5">
+                <input type="file" id="brandImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
+                <p class="upload-file-text color-white">Выбрать картинку</p>
+            </div>
+            <div class="col-8">
+                <div class="input-style has-borders mb-4">
+                    <input type="text" name="title" class="form-control" id="titleBrandInput" placeholder="Тип чаши" required>
+                    <label for="titleInput" class="color-highlight">Тип чаши</label>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-style has-borders mb-4">
+                    <input type="number" name="price" class="form-control" id="priceBrandInput" placeholder="Цена" required>
+                    <label for="priceInput" class="color-highlight">Цена</label>
+                </div>
+            </div>
+        </div>
+        <button id="createbowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
+        <button id="savebowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+    </form>
+    <form method="POST" id="bowlDeleteForm">
+        @csrf
+        <button id="deletebowlButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
+    </form>
+    </div>
+</div>
 
 <script>
 jQuery(document).ready(function() {
@@ -344,7 +390,12 @@ jQuery(document).ready(function() {
             break;
 
         case '3':
-            alert(category)
+            $('[data-menu="menu-bowls-item"]')[0].click();
+            $('#nameOfBowl').text('Чаша');
+            $('#createBowlButton').show();
+            $('#bowlForm').attr('action', '{{ route("admin.bowls.store") }}');
+            $('#saveBowlButton').hide();
+            $('#deleteBowlButton').hide();
             break;
         }
     })
