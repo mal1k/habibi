@@ -154,19 +154,22 @@ true
                     @endisset
                 </div>
                 <div data-bs-parent="#tab-group-1" class="collapse" id="tab-4ab">
+                @isset ( $bowls )
+                    @foreach ($bowls as $item)
                     <div class="d-flex mb-4">
                         <div class="align-self-center">
-                            <img src="https://duda.com.ua/storage/images/glunyanaya-ulu-sulukonovaya-chasha/sulukonovaya-chasha-preumuschestva-u-nedostatku-vhd.jpg" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                            <img src="{{ asset('/storage/' . $item->image) }}" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                         </div>
                         <div class="align-self-center">
-                            <!-- <p class="color-highlight font-11 mb-n2">Силиконовая</p> -->
-                            <h2 class="font-15 line-height-s mt-1 mb-1">Силиконовая</h2>
+                            <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
                         </div>
-                        <div class="ms-auto ps-3 align-self-center text-center">
+                        <div class="ms-auto align-self-center text-center">
                             <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                            <h2 class="font-15 mb-0">123 ₴</h2>
+                            <h2 class="font-15 mb-0" id="price_">{{ $item->price }} ₴</h2>
                         </div>
                     </div>
+                    @endforeach
+                @endisset
                 </div>
             </div>
         </div>
