@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="delect-theme" data-highlight="highlight-red">
+<body class="detect-theme" data-highlight="highlight-red">
 
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
 

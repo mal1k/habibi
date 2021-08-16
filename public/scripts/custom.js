@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //Dark Mode
         function checkDarkMode(){
-            const toggleDark = document.querySelectorAll('[data-toggle-theme]');
+            var toggleDark = document.querySelectorAll('[data-toggle-theme]');
             function activateDarkMode(){
                 document.body.classList.add('theme-dark');
                 document.body.classList.remove('theme-light', 'detect-theme');
@@ -508,7 +508,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(function(){setColorScheme();},50)
             }))
         }
-        checkDarkMode()
+
+        setTimeout(function(){
+            checkDarkMode();
+        },1000);
+
         if(localStorage.getItem(pwaName+'-Theme') == "dark-mode"){document.body.className = 'theme-dark';}
         if(localStorage.getItem(pwaName+'-Theme') == "light-mode"){document.body.className = 'theme-light';}
 
