@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\bowlsController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hookahController;
 use App\Http\Controllers\tobaccoController;
@@ -41,9 +42,6 @@ use Illuminate\Support\Facades\Route;
         Route::get('/home', [homeController::class, 'index'])->name('admin.home.index');
       // hookah editor link
         Route::get('/hookah', [hookahController::class, 'index'])->name('admin.hookah.index');
-        // Route::view('/hookah', 'admin.hookah.dashboard')->name('admin.hookah.index');
-      // hookah categories link
-        // Route::get('/hookah/categories', [homeController::class, 'index'])->name('home.index');
 
     # Handlers
       // home handlers
@@ -65,6 +63,13 @@ use Illuminate\Support\Facades\Route;
             Route::post('/update/{id}', [tobaccoController::class, 'update'])->name('admin.tobacco.update');
             Route::post('/destroy/{id}', [tobaccoController::class, 'destroy'])->name('admin.tobacco.destroy');
         });
+      // bowl handlers
+        Route::prefix('bowls')->group(function () {
+            Route::post('/get', [bowlsController::class, 'get'])->name('admin.bowls.get');
+            Route::post('/store', [bowlsController::class, 'store'])->name('admin.bowls.store');
+            Route::post('/update/{id}', [bowlsController::class, 'update'])->name('admin.bowls.update');
+            Route::post('/destroy/{id}', [bowlsController::class, 'destroy'])->name('admin.bowls.destroy');
+        });
     });
   });
 
@@ -83,7 +88,10 @@ use Illuminate\Support\Facades\Route;
         $tobacco_query = tobacco::orderByDesc('id');
         $tobacco = $tobacco_query->paginate(0);
 
-        return view('hookahs', compact('home', 'hookahs', 'tobacco'));
+        $bowls_query = bowls::orderByDesc('id');
+        $bowls = $bowls_query->paginate(0);
+
+        return view('hookahs', compact('home', 'hookahs', 'tobacco', 'bowls'));
     })->name('menu.hookahs');
 
     Route::get('/bar', function () {
