@@ -15,6 +15,11 @@ class CreateBarTable extends Migration
     {
         Schema::create('bar', function (Blueprint $table) {
             $table->id();
+            $table->string('image');
+            $table->string('name');
+            $table->string('description');
+            $table->string('price');
+            $table->string('category');
             $table->timestamps();
         });
     }
