@@ -13,34 +13,34 @@
 <div class="header-clear-medium">
     <div class="content m-0 row">
       <div class="splide__slide col beer-part-l">
-          <div class="card m-2 card-style">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShM6s307Er3ja0B2jF4YH8DgAwvHoJVzG-d2abB6iSFggQgqDaPxNgL_KRMaG2Q5Pe8jo&usqp=CAU" class="img-fluid beer-img">
+          <div class="card m-2 card-style" beer_id="{{ $beerFirst->id }}" data-menu="menu-beer-item">
+              <img src="{{ asset('/storage/' . $beerFirst->image) }}" class="img-fluid beer-img">
               <div class="p-2 bg-theme rounded-sm">
                   <div class="d-flex">
                       <div>
-                          <h4 class="mb-n1 font-16 line-height-xs pb-2">APA</h4>
+                          <h4 class="mb-n1 font-16 line-height-xs pb-2">{{ $beerFirst->title }}</h4>
                       </div>
                       <div class="ms-auto">
-                          <h4 class="font-14 line-height-xs">50 ₴</h4>
+                          <h4 class="font-14 line-height-xs">{{ $beerFirst->price }} ₴</h4>
                       </div>
                   </div>
-                  <p class="font-10 mb-0"><i class="fa fa-beer color-yellow-dark pe-2" aria-hidden="true"></i>С горчинкой</p>
+                  <p class="font-10 mb-0"><i class="fa fa-beer color-yellow-dark pe-2" aria-hidden="true"></i>{{ $beerFirst->description }}</p>
               </div>
           </div>
       </div>
       <div class="splide__slide col beer-part-r">
-          <div class="card m-2 card-style">
-              <img src="https://www.papercards.com/images/designer-greetings/cd11622-beer-glass-with-heart-suds-son-valentines-day-card.jpg" class="img-fluid beer-img">
+          <div class="card m-2 card-style" beer_id="{{ $beerSecond->id }}" data-menu="menu-beer-item">
+              <img src="{{ asset('/storage/' . $beerSecond->image) }}" class="img-fluid beer-img">
               <div class="p-2 bg-theme rounded-sm">
                   <div class="d-flex">
                       <div>
-                          <h4 class="mb-n1 font-16 line-height-xs pb-2">Pilsner</h4>
+                          <h4 class="mb-n1 font-16 line-height-xs pb-2">{{ $beerSecond->title }}</h4>
                       </div>
                       <div class="ms-auto">
-                          <h4 class="font-14 line-height-xs">50 ₴</h4>
+                          <h4 class="font-14 line-height-xs">{{ $beerSecond->price }} ₴</h4>
                       </div>
                   </div>
-                  <p class="font-10 mb-0"><i class="fa fa-beer color-yellow-dark pe-2" aria-hidden="true"></i>Стандартное</p>
+                  <p class="font-10 mb-0"><i class="fa fa-beer color-yellow-dark pe-2" aria-hidden="true"></i>{{ $beerSecond->description }}</p>
               </div>
           </div>
       </div>
@@ -153,14 +153,14 @@
 <div id="menu-beer-item"
         class="menu menu-box-modal rounded-m bg-theme"
         data-menu-width="350"
-        data-menu-height="360">
+        data-menu-height="340">
     <div class="menu-title">
-        <p class="color-highlight" id="beerProduct">Редактирование</p>
-        <h1 class="font-22" id="nameOfProduct">[[ НАЗВАНИЕ ТАБАКА ]]</h1>
+        <p class="color-highlight" id="beerP">Редактирование</p>
+        <h1 class="font-22" id="nameOfProduct">[[ НАЗВАНИЕ ПИВА ]]</h1>
         <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
     </div>
 
-    <div class="content">
+    <div class="content mt-0">
 
         <div id="form"></div>
 
@@ -172,44 +172,13 @@
             <input type="file" id="barImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
             <p class="upload-file-text color-white">Выбрать картинку</p>
         </div>
-
-        <div id="removeBeerImage" class="col-3 hidden">
-            <input type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 rounded-s w-100" name="removeImage" value="_">
-            <p class="upload-file-text color-white"><i class="fa fa-trash" aria-hidden="true"></i></p>
-        </div>
     </div>
 
         <div class="row mb-0">
-            <div class="col-12">
+            <div class="col-8">
                 <div class="input-style has-borders mb-4">
-                    <input type="text" name="title" class="form-control" id="titleInput" placeholder="Название табака">
-                    <label for="titleInput" class="color-highlight">Название табака</label>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-style has-borders no-icon mb-4">
-                    <label for="beerInput" class="color-highlight">Бренд</label>
-                    <select id="beerInput" name="beer">
-                        <option disabled selected>Бренд</option>
-                        @isset($beer)
-                            @foreach ( $beer as $item )
-                            <option value="{{ $item->title }}">{{ $item->title }}</option>
-                            @endforeach
-                        @endisset
-                    </select>
-                    <span><i class="fa fa-chevron-down"></i></span>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-style has-borders no-icon mb-4">
-                    <label for="strengthInput" class="color-highlight">Крепость</label>
-                    <select id="strengthInput" name="strength">
-                        <option disabled selected>Крепость</option>
-                        <option value="1">Легкий</option>
-                        <option value="2">Средний</option>
-                        <option value="3">Тяжелый</option>
-                    </select>
-                    <span><i class="fa fa-chevron-down"></i></span>
+                    <input type="text" name="title" class="form-control" id="titleInput" placeholder="Название пива">
+                    <label for="titleInput" class="color-highlight">Название пива</label>
                 </div>
             </div>
             <div class="col-4">
@@ -218,9 +187,14 @@
                     <label for="priceInput" class="color-highlight">Цена</label>
                 </div>
             </div>
+            <div class="col-12">
+                <div class="input-style has-borders mb-4">
+                    <input type="text" name="description" class="form-control" id="descriptionInput" placeholder="Описание">
+                    <label for="descriptionInput" class="color-highlight">Описание</label>
+                </div>
+            </div>
         </div>
         <input type="hidden" id="beer_id">
-        <button id="createBeerButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Создать</button>
         <button id="saveBeerButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Сохранить</button>
     </form>
     <form method="POST" id="beerDeleteForm">
@@ -234,31 +208,43 @@
 <div id="menu-bar-item"
         class="menu menu-box-modal rounded-m bg-theme"
         data-menu-width="350"
-        data-menu-height="310">
+        data-menu-height="360">
     <div class="menu-title">
-        <p class="color-highlight" id="beerP">Редактирование</p>
-        <h1 class="font-22" id="nameOfBar">[[ НАЗВАНИЕ БРЕНДА ]]</h1>
+        <p class="color-highlight" id="barP">Редактирование</p>
+        <h1 class="font-22" id="nameOfBar">[[ НАЗВАНИЕ ]]</h1>
         <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
     </div>
 
-    <div class="content">
+    <div class="content mt-0">
 
         <div id="form"></div>
 
     <form method="POST" id="barForm" enctype="multipart/form-data">
         @csrf
 
-        <input type="hidden" id="beer_id">
+        <input type="hidden" id="bar_id">
 
         <div class="row mb-0">
             <div class="file-data pb-5">
                 <input type="file" id="barImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
                 <p class="upload-file-text color-white">Выбрать картинку</p>
             </div>
-            <div class="col-8">
+            <div class="col-12">
                 <div class="input-style has-borders mb-4">
-                    <input type="text" name="title" class="form-control" id="titleBarInput" placeholder="Название бренда" required>
-                    <label for="titleInput" class="color-highlight">Название бренда</label>
+                    <input type="text" name="title" class="form-control" id="titleBarInput" placeholder="Название товара" required>
+                    <label for="titleInput" class="color-highlight">Название товара</label>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="input-style has-borders no-icon mb-4 input-style-active">
+                    <label for="category" class="color-highlight">Категория</label>
+                    <select id="category" name="category">
+                        <option disabled="" selected="">Категория</option>
+                        <option value="non_alcoholic">Безалкогольные</option>
+                        <option value="alcoholic">Алкогольные</option>
+                        <option value="snacks">Закуски</option>
+                    </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
                 </div>
             </div>
             <div class="col-4">
@@ -282,12 +268,17 @@
 jQuery(document).ready(function() {
   // add new item button clicked
     $('#addNewItem').click(function(){
+        $('#barP').text('Новый');
+        $('#nameOfBar').text('Бар');
         $('[data-menu="menu-bar-item"]')[0].click();
+        $("#createBarButton").show();
+        $('#saveBarButton').hide();
+        $('#deleteBarButton').hide();
+        $('#barForm').attr('action', '/admin/bar/store');
     })
 
   // click on created beer
     $('[data-menu="menu-beer-item"').click(function(){
-        $("#createBeerButton").hide();
         $('#saveBeerButton').show();
         $('#deleteBeerButton').show();
         $('.menu-hider.menu-active').hide();
@@ -304,16 +295,12 @@ jQuery(document).ready(function() {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success:function(data){
-                if ( data.image ) {
-                    $("#uploadBeerImage").removeClass('col-12').addClass('col-9');
-                    $("#removeBeerImage").removeClass('hidden');
-                }
                 $("#titleInput").val(data.title);
                 $("#beer_id").attr('name', 'beer_id');
                 $("#beer_id").val(data.id);
                 $('#beerInput').val(data.beer);
-                $('#strengthInput').val(data.strength);
                 $('#priceInput').val(data.price);
+                $('#descriptionInput').val(data.description);
                 $('#nameOfProduct').text(data.title);
                 $('#beerProduct').text(data.beer);
                 $('.menu-hider.menu-active').show();
@@ -330,8 +317,8 @@ jQuery(document).ready(function() {
             $('.menu-hider.menu-active').hide();
             $('#menu-bar-item').hide();
             var id = $(this).attr('bar_id');
-            $('#BarForm').attr('action', '/admin/bar/update/'+id+'');
-            $('#BarDeleteForm').attr('action', '/admin/bar/destroy/'+id+'');
+            $('#barForm').attr('action', '/admin/bar/update/'+id+'');
+            $('#barDeleteForm').attr('action', '/admin/bar/destroy/'+id+'');
 
             $.ajax({
                 type:'POST',
@@ -341,14 +328,23 @@ jQuery(document).ready(function() {
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
+
                     $('#nameOfBar').text(data.title);
-                    $('#beerP').text('Бренд');
+
+                    if ( data.category == 'non_alcoholic' )
+                        $('#barP').text('Безалкогольные');
+                    else if ( data.category == 'alcoholic' )
+                        $('#barP').text('Алкогольные');
+                    else if ( data.category == 'snacks' )
+                        $('#barP').text('Закуски');
+
                     $('#titleBarInput').val(data.title);
                     $('#priceBarInput').val(data.price);
-                    $("#beer_id").attr('name', 'beer_id');
-                    $("#beer_id").val(id);
                     $('.menu-hider.menu-active').show();
                     $('#menu-bar-item').show();
+                    $("#bar_id").attr('name', 'bar_id');
+                    $("#bar_id").val(data.id);
+                    $("#category").val(data.category);
                 }
             });
         })
