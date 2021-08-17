@@ -11,7 +11,7 @@ class bar extends Model
     protected $table = 'bar';
     protected $fillable = [
         'image',
-        'name',
+        'title',
         'description',
         'price',
         'category',
