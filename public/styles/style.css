@@ -7598,8 +7598,12 @@ input[type=number] {
     display: none !important;
 }
 
-.beer-part {
-    margin: 20px -5px 10px;
+.beer-part-l {
+    margin: 20px -20px 10px 0;
+}
+
+.beer-part-r {
+    margin: 20px 0 10px;
 }
 
 .beer-img {
