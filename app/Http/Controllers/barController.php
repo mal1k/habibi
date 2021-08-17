@@ -15,4 +15,11 @@ class barController extends Controller
 
             return view('admin.bar.dashboard', compact('bar'));
         }
+
+  // get
+    public function get(Request $request)
+        {
+            $bar = bar::where('id' , '=' , $request->id )->first();
+            return json_decode($bar);
+        }
 }
