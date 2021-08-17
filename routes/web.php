@@ -73,6 +73,13 @@ use Illuminate\Support\Facades\Route;
             Route::post('/update/{id}', [bowlsController::class, 'update'])->name('admin.bowls.update');
             Route::post('/destroy/{id}', [bowlsController::class, 'destroy'])->name('admin.bowls.destroy');
         });
+      // bar handlers
+        Route::prefix('bar')->group(function () {
+            Route::post('/get', [barController::class, 'get'])->name('admin.bar.get');
+            Route::post('/store', [barController::class, 'store'])->name('admin.bar.store');
+            Route::post('/update/{id}', [barController::class, 'update'])->name('admin.bar.update');
+            Route::post('/destroy/{id}', [barController::class, 'destroy'])->name('admin.bar.destroy');
+        });
     });
   });
 
