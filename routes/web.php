@@ -43,7 +43,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('/home', [homeController::class, 'index'])->name('admin.home.index');
       // hookah editor link
         Route::get('/hookah', [hookahController::class, 'index'])->name('admin.hookah.index');
-
+      // bar editor link
+        Route::get('/bar', [barController::class, 'index'])->name('admin.bar.index');
     # Handlers
       // home handlers
         Route::prefix('home')->group(function () {
