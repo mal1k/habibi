@@ -44,7 +44,11 @@ class hookahController extends Controller
      */
     public function store(Request $request)
     {
-        hookah::create($request->all()); // create tobacco
+        $hookah = hookah::create($request->all()); // create tobacco
+        if ( isset($request->image) ) { // update logo
+            $path = $request->file('image')->store('hookah', 'public'); // upload image
+            $hookah->update([ 'image' => $path ]);
+        }
         return redirect()->route('admin.hookah.index')->withSuccess('Created tobacco "' . $request->title . '"');
     }
 
@@ -59,6 +63,13 @@ class hookahController extends Controller
     {
         $hookah = hookah::where('id' , '=' , $id )->first();
         $hookah->update($request->all());
+        if ( isset($request->image) ) { // update logo
+            $path = $request->file('image')->store('hookah', 'public'); // upload image
+            $hookah->update([ 'image' => $path ]);
+        }
+        if ( $request->removeImage )
+            $hookah->update([ 'image' => null ]);
+
         return redirect()->route('admin.hookah.index')->withSuccess('Updated tobacco "' . $request->title . '"');
     }
 

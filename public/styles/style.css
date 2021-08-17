@@ -7593,3 +7593,16 @@ input[type=number] {
 .d-grid {
     display: grid;
 }
+
+.hidden {
+    display: none !important;
+}
+
+.beer-part {
+    margin: 20px -5px 10px;
+}
+
+.beer-img {
+    object-fit: cover;
+    height: 200px !important;
+}

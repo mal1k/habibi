@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div class="content mt-n4 mb-100 d-grid">
+        <div class="content mt-n4 d-grid">
             <button class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s" type="submit">Сохранить</button>
         </div>
 

@@ -25,7 +25,7 @@
             <div class="clearfix mb-4"></div>
             <div data-bs-parent="#tobacco" class="collapse show" id="tobaccoList">
                 <div class="card mt-n3">
-                    <div class="content mb-0" id="tab-group-1">
+                    <div class="content mb-n4" id="tab-group-1">
                         <div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
                             <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tab-1ab">Легкие</a>
                             <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-2ab">Средние</a>
@@ -202,7 +202,7 @@
 <div id="menu-cart-item"
         class="menu menu-box-modal rounded-m bg-theme"
         data-menu-width="350"
-        data-menu-height="310">
+        data-menu-height="360">
     <div class="menu-title">
         <p class="color-highlight" id="tobaccoProduct">Редактирование</p>
         <h1 class="font-22" id="nameOfProduct">[[ НАЗВАНИЕ ТАБАКА ]]</h1>
@@ -215,6 +215,18 @@
 
     <form method="POST" id="hookahForm" enctype="multipart/form-data">
         @csrf
+
+    <div class="row">
+        <div id="uploadTobaccoImage" class="file-data pb-3 col-12">
+            <input type="file" id="brandImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
+            <p class="upload-file-text color-white">Выбрать картинку</p>
+        </div>
+
+        <div id="removeTobaccoImage" class="col-3 hidden">
+            <input type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 rounded-s w-100" name="removeImage" value="_">
+            <p class="upload-file-text color-white"><i class="fa fa-trash" aria-hidden="true"></i></p>
+        </div>
+    </div>
 
         <div class="row mb-0">
             <div class="col-12">
@@ -257,8 +269,8 @@
             </div>
         </div>
         <input type="hidden" id="hookah_id">
-        <button id="createTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
-        <button id="saveTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+        <button id="createTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Создать</button>
+        <button id="saveTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Сохранить</button>
     </form>
     <form method="POST" id="hookahDeleteForm">
         @csrf
@@ -409,6 +421,8 @@ jQuery(document).ready(function() {
 
   // click on created hookah
     $('[data-menu="menu-cart-item"').click(function(){
+        $("#uploadTobaccoImage").removeClass('col-9').addClass('col-12');
+        $("#removeTobaccoImage").addClass('hidden');
         $("#createTobaccoButton").hide();
         $('#saveTobaccoButton').show();
         $('#deleteTobaccoButton').show();
@@ -426,6 +440,10 @@ jQuery(document).ready(function() {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success:function(data){
+                if ( data.image ) {
+                    $("#uploadTobaccoImage").removeClass('col-12').addClass('col-9');
+                    $("#removeTobaccoImage").removeClass('hidden');
+                }
                 $("#titleInput").val(data.title);
                 $("#hookah_id").attr('name', 'hookah_id');
                 $("#hookah_id").val(data.id);
