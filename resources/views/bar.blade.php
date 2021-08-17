@@ -14,7 +14,7 @@ true
     <div>
 
       <div class="content m-0 row" id="tab-group-1">
-            <div class="splide__slide col beer-part">
+            <div class="splide__slide col beer-part-l">
                 <div class="card m-2 card-style">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShM6s307Er3ja0B2jF4YH8DgAwvHoJVzG-d2abB6iSFggQgqDaPxNgL_KRMaG2Q5Pe8jo&usqp=CAU" class="img-fluid beer-img">
                     <div class="p-2 bg-theme rounded-sm">
@@ -30,7 +30,7 @@ true
                     </div>
                 </div>
             </div>
-            <div class="splide__slide col beer-part">
+            <div class="splide__slide col beer-part-r">
                 <div class="card m-2 card-style">
                     <img src="https://www.papercards.com/images/designer-greetings/cd11622-beer-glass-with-heart-suds-son-valentines-day-card.jpg" class="img-fluid beer-img">
                     <div class="p-2 bg-theme rounded-sm">
