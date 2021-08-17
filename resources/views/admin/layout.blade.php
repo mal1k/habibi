@@ -26,8 +26,7 @@
 
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
 
-<div class="page-content" style="min-height:100vh;">
-<div id="page">
+<div id="page" style="min-height:100vh;">
 
     <div class="page-title page-title-fixed">
         <h1>@yield('title')</h1>
@@ -48,7 +47,6 @@
 
     @yield('content')
 
-</div>
 </div>
 
 <script type="text/javascript" src="{{ URL::asset('scripts/bootstrap.min.js') }}"></script>
