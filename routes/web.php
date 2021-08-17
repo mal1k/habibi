@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\barController;
 use App\Http\Controllers\bowlsController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hookahController;
