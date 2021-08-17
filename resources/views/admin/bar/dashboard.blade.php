@@ -8,12 +8,10 @@
 @endsection
 
 @section('content')
-<div data-menu="menu-cart-item"></div>
-<div data-menu="menu-tobacco-item"></div>
-<div data-menu="menu-bowls-item"></div>
+<div data-menu="menu-bar-item"></div>
 
 <div class="header-clear-medium">
-    <div class="content m-0 row" id="tab-group-1">
+    <div class="content m-0 row">
       <div class="splide__slide col beer-part-l">
           <div class="card m-2 card-style">
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShM6s307Er3ja0B2jF4YH8DgAwvHoJVzG-d2abB6iSFggQgqDaPxNgL_KRMaG2Q5Pe8jo&usqp=CAU" class="img-fluid beer-img">
@@ -61,136 +59,103 @@
 
           <div class="clearfix mb-4"></div>
           <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-1ab">
-              @isset ( $hookahs )
-                  @foreach ($hookahs as $hookah)
-                  @if ( $hookah->strength == 1 )
-                  <div class="d-flex mb-4">
-                      <div class="align-self-center">
-                          <img
-                          @if ( isset($hookah->image) )
-                              src="{{ asset('/storage/' . $hookah->image) }}"
-                          @else
-                              @foreach ( $tobacco as $item )
-                                  @if ( $item->title == $hookah->tobacco )
-                                      src="{{ asset('/storage/' . $item->image) }}"
-                                  @endif
-                              @endforeach
-                          @endif
-                          class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
-                      </div>
-                      <div class="align-self-center">
-                          <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
-                          <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
-                      </div>
-                      <div class="ms-auto align-self-center text-center">
-                          <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                          <h2 class="font-15 mb-0" id="price_">
-                              @if ( isset($hookah->price) )
-                                  {{ $hookah->price }}
-                              @else
-                                  @foreach ( $tobacco as $item )
-                                      @if ( $item->title == $hookah->tobacco )
-                                          {{ $item->price }}
-                                      @endif
-                                  @endforeach
-                              @endif ₴</h2>
-                      </div>
-                  </div>
-                  @endif
-                  @endforeach
-              @endisset
+          @isset ( $bar )
+            @foreach ($bar as $item)
+                @if ( $item->category == 'non_alcoholic' )
+                <div class="d-flex mb-4" bar_id="{{ $item->id }}" data-menu="menu-bar-item">
+                    <div class="align-self-center">
+                        <img
+                        @if ( isset($item->image) )
+                            src="{{ asset('/storage/' . $item->image) }}"
+                        @else
+                            @foreach ( $beer as $item )
+                                another
+                            @endforeach
+                        @endif
+                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                    </div>
+                    <div class="align-self-center">
+                        <h1 class="color-highlight font-13 mb-n2">{{ $item->beer }}</h1>
+                        <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
+                    </div>
+                    <div class="ms-auto align-self-center text-center">
+                        <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
+                        <h2 class="font-15 mb-0" id="price">{{ $item->price }} ₴</h2>
+                    </div>
+                </div>
+                @endif
+            @endforeach
+          @endisset
           </div>
           <div data-bs-parent="#tab-group-1" class="collapse" id="tab-2ab">
-              @isset ( $hookahs )
-                  @foreach ($hookahs as $hookah)
-                  @if ( $hookah->strength == 2 )
-                  <div class="d-flex mb-4">
-                      <div class="align-self-center">
-                          <img
-                          @if ( isset($hookah->image) )
-                              src="{{ asset('/storage/' . $hookah->image) }}"
-                          @else
-                              @foreach ( $tobacco as $item )
-                                  @if ( $item->title == $hookah->tobacco )
-                                      src="{{ asset('/storage/' . $item->image) }}"
-                                  @endif
-                              @endforeach
-                          @endif
-                          class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
-                      </div>
-                      <div class="align-self-center">
-                          <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
-                          <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
-                      </div>
-                      <div class="ms-auto align-self-center text-center">
-                          <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                          <h2 class="font-15 mb-0" id="price_">
-                              @if ( isset($hookah->price) )
-                                  {{ $hookah->price }}
-                              @else
-                                  @foreach ( $tobacco as $item )
-                                      @if ( $item->title == $hookah->tobacco )
-                                          {{ $item->price }}
-                                      @endif
-                                  @endforeach
-                              @endif ₴</h2>
-                      </div>
-                  </div>
-                  @endif
-                  @endforeach
-              @endisset
+          @isset ( $bar )
+            @foreach ($bar as $item)
+                @if ( $item->category == 'alcoholic' )
+                <div class="d-flex mb-4" bar_id="{{ $item->id }}" data-menu="menu-bar-item">
+                    <div class="align-self-center">
+                        <img
+                        @if ( isset($item->image) )
+                            src="{{ asset('/storage/' . $item->image) }}"
+                        @else
+                            @foreach ( $beer as $item )
+                                another
+                            @endforeach
+                        @endif
+                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                    </div>
+                    <div class="align-self-center">
+                        <h1 class="color-highlight font-13 mb-n2">{{ $item->beer }}</h1>
+                        <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
+                    </div>
+                    <div class="ms-auto align-self-center text-center">
+                        <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
+                        <h2 class="font-15 mb-0" id="price">{{ $item->price }} ₴</h2>
+                    </div>
+                </div>
+                @endif
+            @endforeach
+          @endisset
           </div>
           <div data-bs-parent="#tab-group-1" class="collapse" id="tab-3ab">
-              @isset ( $hookahs )
-                  @foreach ($hookahs as $hookah)
-                  @if ( $hookah->strength == 3 )
-                  <div class="d-flex mb-4">
-                      <div class="align-self-center">
-                          <img
-                          @if ( isset($hookah->image) )
-                              src="{{ asset('/storage/' . $hookah->image) }}"
-                          @else
-                              @foreach ( $tobacco as $item )
-                                  @if ( $item->title == $hookah->tobacco )
-                                      src="{{ asset('/storage/' . $item->image) }}"
-                                  @endif
-                              @endforeach
-                          @endif
-                          class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
-                      </div>
-                      <div class="align-self-center">
-                          <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
-                          <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
-                      </div>
-                      <div class="ms-auto align-self-center text-center">
-                          <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                          <h2 class="font-15 mb-0" id="price_">
-                              @if ( isset($hookah->price) )
-                                  {{ $hookah->price }}
-                              @else
-                                  @foreach ( $tobacco as $item )
-                                      @if ( $item->title == $hookah->tobacco )
-                                          {{ $item->price }}
-                                      @endif
-                                  @endforeach
-                              @endif ₴</h2>
-                      </div>
-                  </div>
-                  @endif
-                  @endforeach
-              @endisset
+          @isset ( $bar )
+            @foreach ($bar as $item)
+                @if ( $item->category == 'snacks' )
+                <div class="d-flex mb-4" bar_id="{{ $item->id }}" data-menu="menu-bar-item">
+                    <div class="align-self-center">
+                        <img
+                        @if ( isset($item->image) )
+                            src="{{ asset('/storage/' . $item->image) }}"
+                        @else
+                            @foreach ( $beer as $item )
+                                another
+                            @endforeach
+                        @endif
+                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                    </div>
+                    <div class="align-self-center">
+                        <h1 class="color-highlight font-13 mb-n2">{{ $item->beer }}</h1>
+                        <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
+                    </div>
+                    <div class="ms-auto align-self-center text-center">
+                        <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
+                        <h2 class="font-15 mb-0" id="price">{{ $item->price }} ₴</h2>
+                    </div>
+                </div>
+                @endif
+            @endforeach
+          @endisset
           </div>
       </div>
     </div>
 </div>
 
-<!-- hookah -->
-<div id="menu-cart-item"
+<!-- beer -->
+<div id="menu-beer-item"
         class="menu menu-box-modal rounded-m bg-theme"
         data-menu-width="350"
         data-menu-height="360">
     <div class="menu-title">
-        <p class="color-highlight" id="tobaccoProduct">Редактирование</p>
+        <p class="color-highlight" id="beerProduct">Редактирование</p>
         <h1 class="font-22" id="nameOfProduct">[[ НАЗВАНИЕ ТАБАКА ]]</h1>
         <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
     </div>
@@ -199,16 +164,16 @@
 
         <div id="form"></div>
 
-    <form method="POST" id="hookahForm" enctype="multipart/form-data">
+    <form method="POST" id="beerForm" enctype="multipart/form-data">
         @csrf
 
     <div class="row">
-        <div id="uploadTobaccoImage" class="file-data pb-3 col-12">
-            <input type="file" id="brandImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
+        <div id="uploadBeerImage" class="file-data pb-3 col-12">
+            <input type="file" id="barImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
             <p class="upload-file-text color-white">Выбрать картинку</p>
         </div>
 
-        <div id="removeTobaccoImage" class="col-3 hidden">
+        <div id="removeBeerImage" class="col-3 hidden">
             <input type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 rounded-s w-100" name="removeImage" value="_">
             <p class="upload-file-text color-white"><i class="fa fa-trash" aria-hidden="true"></i></p>
         </div>
@@ -223,11 +188,11 @@
             </div>
             <div class="col-4">
                 <div class="input-style has-borders no-icon mb-4">
-                    <label for="tobaccoInput" class="color-highlight">Бренд</label>
-                    <select id="tobaccoInput" name="tobacco">
+                    <label for="beerInput" class="color-highlight">Бренд</label>
+                    <select id="beerInput" name="beer">
                         <option disabled selected>Бренд</option>
-                        @isset($tobacco)
-                            @foreach ( $tobacco as $item )
+                        @isset($beer)
+                            @foreach ( $beer as $item )
                             <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
                         @endisset
@@ -254,25 +219,25 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="hookah_id">
-        <button id="createTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Создать</button>
-        <button id="saveTobaccoButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Сохранить</button>
+        <input type="hidden" id="beer_id">
+        <button id="createBeerButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Создать</button>
+        <button id="saveBeerButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Сохранить</button>
     </form>
-    <form method="POST" id="hookahDeleteForm">
+    <form method="POST" id="beerDeleteForm">
         @csrf
-        <button id="deleteTobaccoButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
+        <button id="deleteBeerButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
     </form>
     </div>
 </div>
 
-<!-- tobacco -->
-<div id="menu-tobacco-item"
+<!-- bar -->
+<div id="menu-bar-item"
         class="menu menu-box-modal rounded-m bg-theme"
         data-menu-width="350"
         data-menu-height="310">
     <div class="menu-title">
-        <p class="color-highlight" id="tobaccoP">Редактирование</p>
-        <h1 class="font-22" id="nameOfBrand">[[ НАЗВАНИЕ БРЕНДА ]]</h1>
+        <p class="color-highlight" id="beerP">Редактирование</p>
+        <h1 class="font-22" id="nameOfBar">[[ НАЗВАНИЕ БРЕНДА ]]</h1>
         <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
     </div>
 
@@ -280,83 +245,35 @@
 
         <div id="form"></div>
 
-    <form method="POST" id="brandForm" enctype="multipart/form-data">
+    <form method="POST" id="barForm" enctype="multipart/form-data">
         @csrf
 
-        <input type="hidden" id="tobacco_id">
+        <input type="hidden" id="beer_id">
 
         <div class="row mb-0">
             <div class="file-data pb-5">
-                <input type="file" id="brandImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
+                <input type="file" id="barImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
                 <p class="upload-file-text color-white">Выбрать картинку</p>
             </div>
             <div class="col-8">
                 <div class="input-style has-borders mb-4">
-                    <input type="text" name="title" class="form-control" id="titleBrandInput" placeholder="Название бренда" required>
+                    <input type="text" name="title" class="form-control" id="titleBarInput" placeholder="Название бренда" required>
                     <label for="titleInput" class="color-highlight">Название бренда</label>
                 </div>
             </div>
             <div class="col-4">
                 <div class="input-style has-borders mb-4">
-                    <input type="number" name="price" class="form-control" id="priceBrandInput" placeholder="Цена" required>
+                    <input type="number" name="price" class="form-control" id="priceBarInput" placeholder="Цена" required>
                     <label for="priceInput" class="color-highlight">Цена</label>
                 </div>
             </div>
         </div>
-        <button id="createBrandButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
-        <button id="saveBrandButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
+        <button id="createBarButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
+        <button id="saveBarButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
     </form>
-    <form method="POST" id="brandDeleteForm">
+    <form method="POST" id="barDeleteForm">
         @csrf
-        <button id="deleteBrandButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
-    </form>
-    </div>
-</div>
-
-<!-- bowls -->
-<div id="menu-bowls-item"
-        class="menu menu-box-modal rounded-m bg-theme"
-        data-menu-width="350"
-        data-menu-height="310">
-    <div class="menu-title">
-        <p class="color-highlight" id="bowlP">Редактирование</p>
-        <h1 class="font-22" id="nameOfBowl">[[ НАЗВАНИЕ ЧАШИ ]]</h1>
-        <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
-    </div>
-
-    <div class="content">
-
-        <div id="form"></div>
-
-    <form method="POST" id="bowlForm" enctype="multipart/form-data">
-        @csrf
-
-        <input type="hidden" id="bowl_id">
-
-        <div class="row mb-0">
-            <div class="file-data pb-5">
-                <input type="file" id="brandImageUpload" class="upload-file bg-highlight shadow-s rounded-s" name="image" accept=".png, .jpg, .jpeg">
-                <p class="upload-file-text color-white">Выбрать картинку</p>
-            </div>
-            <div class="col-8">
-                <div class="input-style has-borders mb-4">
-                    <input type="text" name="title" class="form-control" id="titleBowlInput" placeholder="Тип чаши" required>
-                    <label for="titleBowlInput" class="color-highlight">Тип чаши</label>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="input-style has-borders mb-4">
-                    <input type="number" name="price" class="form-control" id="priceBowlInput" placeholder="Цена" required>
-                    <label for="priceBowlInput" class="color-highlight">Цена</label>
-                </div>
-            </div>
-        </div>
-        <button id="createBowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Создать</button>
-        <button id="saveBowlButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 mt-3 rounded-s w-100">Сохранить</button>
-    </form>
-    <form method="POST" id="bowlDeleteForm">
-        @csrf
-        <button id="deleteBowlButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
+        <button id="deleteBarButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
     </form>
     </div>
 </div>
@@ -365,145 +282,77 @@
 jQuery(document).ready(function() {
   // add new item button clicked
     $('#addNewItem').click(function(){
-        // find chosen category
-        var category = $('[choose-category="cat"].bg-highlight.no-click').attr("data-target-id");
-
-        switch(category) {
-
-        // табаки
-        case '1':
-            $('[data-menu="menu-cart-item"]')[0].click();
-            $('#tobaccoProduct').text('Новый');
-            $('#nameOfProduct').text('Табак');
-            $('#createTobaccoButton').show();
-            $('#hookahForm').attr('action', '{{ route("admin.hookah.store") }}');
-            $('#saveTobaccoButton').hide();
-            $('#deleteTobaccoButton').hide();
-            break;
-
-        // бренды
-        case '2':
-            $('[data-menu="menu-tobacco-item"]')[0].click();
-            $('#tobaccoP').text('Новый');
-            $('#nameOfBrand').text('Бренд');
-            $('#createBrandButton').show();
-            $('#brandForm').attr('action', '{{ route("admin.tobacco.store") }}');
-            $('#saveBrandButton').hide();
-            $('#deleteBrandButton').hide();
-            break;
-
-        // чаши
-        case '3':
-            $('[data-menu="menu-bowls-item"]')[0].click();
-            $('#bowlP').text('Тип');
-            $('#nameOfBowl').text('Чаши');
-            $('#createBowlButton').show();
-            $('#bowlForm').attr('action', '{{ route("admin.bowls.store") }}');
-            $('#saveBowlButton').hide();
-            $('#deleteBowlButton').hide();
-            break;
-        }
+        $('[data-menu="menu-bar-item"]')[0].click();
     })
 
-  // click on created hookah
-    $('[data-menu="menu-cart-item"').click(function(){
-        $("#uploadTobaccoImage").removeClass('col-9').addClass('col-12');
-        $("#removeTobaccoImage").addClass('hidden');
-        $("#createTobaccoButton").hide();
-        $('#saveTobaccoButton').show();
-        $('#deleteTobaccoButton').show();
+  // click on created beer
+    $('[data-menu="menu-beer-item"').click(function(){
+        $("#createBeerButton").hide();
+        $('#saveBeerButton').show();
+        $('#deleteBeerButton').show();
         $('.menu-hider.menu-active').hide();
-        $('#menu-cart-item').hide();
-        var id = $(this).attr('hookah_id');
-        $('#hookahForm').attr('action', '/admin/hookah/update/'+id+'');
-        $('#hookahDeleteForm').attr('action', '/admin/hookah/destroy/'+id+'');
+        $('#menu-beer-item').hide();
+        var id = $(this).attr('beer_id');
+        $('#beerForm').attr('action', '/admin/bar/update/'+id+'');
+        $('#beerDeleteForm').attr('action', '/admin/bar/destroy/'+id+'');
 
         $.ajax({
             type:'POST',
-            url:'{{ route("admin.hookah.get") }}',
+            url:'{{ route("admin.bar.get") }}',
             data:{id:id},
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
             },
             success:function(data){
                 if ( data.image ) {
-                    $("#uploadTobaccoImage").removeClass('col-12').addClass('col-9');
-                    $("#removeTobaccoImage").removeClass('hidden');
+                    $("#uploadBeerImage").removeClass('col-12').addClass('col-9');
+                    $("#removeBeerImage").removeClass('hidden');
                 }
                 $("#titleInput").val(data.title);
-                $("#hookah_id").attr('name', 'hookah_id');
-                $("#hookah_id").val(data.id);
-                $('#tobaccoInput').val(data.tobacco);
+                $("#beer_id").attr('name', 'beer_id');
+                $("#beer_id").val(data.id);
+                $('#beerInput').val(data.beer);
                 $('#strengthInput').val(data.strength);
                 $('#priceInput').val(data.price);
                 $('#nameOfProduct').text(data.title);
-                $('#tobaccoProduct').text(data.tobacco);
+                $('#beerProduct').text(data.beer);
                 $('.menu-hider.menu-active').show();
-                $('#menu-cart-item').show();
+                $('#menu-beer-item').show();
             }
         });
     })
-  // click on created tobacco
-    $('[data-menu="menu-tobacco-item"').click(function(){
-            $("#createBrandButton").hide();
-            $('#saveBrandButton').show();
-            $('#deleteBrandButton').show();
+
+  // click on created bar
+    $('[data-menu="menu-bar-item"').click(function(){
+            $("#createBarButton").hide();
+            $('#saveBarButton').show();
+            $('#deleteBarButton').show();
             $('.menu-hider.menu-active').hide();
-            $('#menu-tobacco-item').hide();
-            var id = $(this).attr('tobacco_id');
-            $('#brandForm').attr('action', '/admin/tobacco/update/'+id+'');
-            $('#brandDeleteForm').attr('action', '/admin/tobacco/destroy/'+id+'');
+            $('#menu-bar-item').hide();
+            var id = $(this).attr('bar_id');
+            $('#BarForm').attr('action', '/admin/bar/update/'+id+'');
+            $('#BarDeleteForm').attr('action', '/admin/bar/destroy/'+id+'');
 
             $.ajax({
                 type:'POST',
-                url:'{{ route("admin.tobacco.get") }}',
+                url:'{{ route("admin.bar.get") }}',
                 data:{id:id},
                 headers: {
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
-                    $('#nameOfBrand').text(data.title);
-                    $('#tobaccoP').text('Бренд');
-                    $('#titleBrandInput').val(data.title);
-                    $('#priceBrandInput').val(data.price);
-                    $("#tobacco_id").attr('name', 'tobacco_id');
-                    $("#tobacco_id").val(id);
+                    $('#nameOfBar').text(data.title);
+                    $('#beerP').text('Бренд');
+                    $('#titleBarInput').val(data.title);
+                    $('#priceBarInput').val(data.price);
+                    $("#beer_id").attr('name', 'beer_id');
+                    $("#beer_id").val(id);
                     $('.menu-hider.menu-active').show();
-                    $('#menu-tobacco-item').show();
+                    $('#menu-bar-item').show();
                 }
             });
         })
 
-  // click on created bowl
-    $('[data-menu="menu-bowls-item"').click(function(){
-            $("#createBowlButton").hide();
-            $('#saveBowlButton').show();
-            $('#deleteBowlButton').show();
-            $('.menu-hider.menu-active').hide();
-            $('#menu-tobacco-item').hide();
-            var id = $(this).attr('bowls_id');
-            $('#bowlForm').attr('action', '/admin/bowls/update/'+id+'');
-            $('#bowlDeleteForm').attr('action', '/admin/bowls/destroy/'+id+'');
-
-            $.ajax({
-                type:'POST',
-                url:'{{ route("admin.bowls.get") }}',
-                data:{id:id},
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success:function(data){
-                    $('#nameOfBowl').text(data.title);
-                    $('#bowlP').text('Чаша');
-                    $('#titleBowlInput').val(data.title);
-                    $('#priceBowlInput').val(data.price);
-                    $("#tobacco_id").attr('name', 'tobacco_id');
-                    $("#tobacco_id").val(id);
-                    $('.menu-hider.menu-active').show();
-                    $('#menu-tobacco-item').show();
-                }
-            });
-        })
 })
 </script>
 
