@@ -48,7 +48,7 @@
     <!-- footer menu -->
     <div id="footer-bar" class="footer-bar-6">
         <a href="{{ route('admin.hookah.index') }}" class="@if (app()->view->getSections()['menu-num'] == 1) active-nav @endif"><i class="fa fa-layer-group"></i><span>Кальяны</span></a>
-        <a href="index-pages.html" class="@if (app()->view->getSections()['menu-num'] == 2) active-nav @endif"><i class="fa fa-file"></i><span>Бар</span></a>
+        <a href="{{ route('admin.bar.index') }}" class="@if (app()->view->getSections()['menu-num'] == 2) active-nav @endif"><i class="fa fa-file"></i><span>Бар</span></a>
         <a href="{{ route('admin.home.dashboard') }}" class="circle-nav @if (app()->view->getSections()['menu-num'] == 3) active-nav @endif"><i class="fa fa-home"></i><span>Главная</span></a>
         <a href="index-projects.html" class="@if (app()->view->getSections()['menu-num'] == 4) active-nav @endif"><i class="fa fa-camera"></i><span>Услуги</span></a>
         <a href="#" data-menu="menu-main" class="@if (app()->view->getSections()['menu-num'] == 5) active-nav @endif"><i class="fa fa-bars"></i><span>С собой</span></a>
