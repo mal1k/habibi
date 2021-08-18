@@ -9,6 +9,7 @@ use App\Models\bar;
 use App\Models\bowls;
 use App\Models\home;
 use App\Models\hookah;
+use App\Models\services;
 use App\Models\tobacco;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
@@ -110,13 +111,16 @@ use Illuminate\Support\Facades\Route;
         $beerSecond = bar::where('category' , '=' , 'beer' )->skip(1)->first();
         $bar_query = bar::orderByDesc('id');
         $bar = $bar_query->paginate(0);
+        $home = home::first();
 
-        return view('bar', compact('bar', 'beerFirst', 'beerSecond'));
+        return view('bar', compact('home', 'bar', 'beerFirst', 'beerSecond'));
     })->name('menu.bar');
 
     Route::get('/services', function () {
+        $services_query = services::orderByDesc('id');
+        $services = $services_query->paginate(0);
         $home = home::first();
-        return view('services', compact('home'));
+        return view('services', compact('home', 'services'));
     })->name('menu.services');
 
     Route::get('/take-away', function () {
