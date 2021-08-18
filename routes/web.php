@@ -5,6 +5,7 @@ use App\Http\Controllers\bowlsController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hookahController;
 use App\Http\Controllers\tobaccoController;
+use App\Models\bar;
 use App\Models\bowls;
 use App\Models\home;
 use App\Models\hookah;
@@ -105,8 +106,12 @@ use Illuminate\Support\Facades\Route;
     })->name('menu.hookahs');
 
     Route::get('/bar', function () {
-        $home = home::first();
-        return view('bar', compact('home'));
+        $beerFirst = bar::where('category' , '=' , 'beer' )->first();
+        $beerSecond = bar::where('category' , '=' , 'beer' )->skip(1)->first();
+        $bar_query = bar::orderByDesc('id');
+        $bar = $bar_query->paginate(0);
+
+        return view('bar', compact('bar', 'beerFirst', 'beerSecond'));
     })->name('menu.bar');
 
     Route::get('/services', function () {

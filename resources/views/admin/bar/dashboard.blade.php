@@ -46,8 +46,6 @@
       </div>
     </div>
 
-
-
     <div class="card card-style">
       <div class="content mb-0 mt-3" id="tab-group-1">
           <h1 class="text-center mb-2">Бар</h1>
@@ -64,15 +62,7 @@
                 @if ( $item->category == 'non_alcoholic' )
                 <div class="d-flex mb-4" bar_id="{{ $item->id }}" data-menu="menu-bar-item">
                     <div class="align-self-center">
-                        <img
-                        @if ( isset($item->image) )
-                            src="{{ asset('/storage/' . $item->image) }}"
-                        @else
-                            @foreach ( $beer as $item )
-                                another
-                            @endforeach
-                        @endif
-                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                        <img src="{{ asset('/storage/' . $item->image) }}" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                     </div>
                     <div class="align-self-center">
                         <h1 class="color-highlight font-13 mb-n2">{{ $item->beer }}</h1>
@@ -93,15 +83,7 @@
                 @if ( $item->category == 'alcoholic' )
                 <div class="d-flex mb-4" bar_id="{{ $item->id }}" data-menu="menu-bar-item">
                     <div class="align-self-center">
-                        <img
-                        @if ( isset($item->image) )
-                            src="{{ asset('/storage/' . $item->image) }}"
-                        @else
-                            @foreach ( $beer as $item )
-                                another
-                            @endforeach
-                        @endif
-                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                        <img  src="{{ asset('/storage/' . $item->image) }}" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                     </div>
                     <div class="align-self-center">
                         <h1 class="color-highlight font-13 mb-n2">{{ $item->beer }}</h1>
@@ -122,15 +104,7 @@
                 @if ( $item->category == 'snacks' )
                 <div class="d-flex mb-4" bar_id="{{ $item->id }}" data-menu="menu-bar-item">
                     <div class="align-self-center">
-                        <img
-                        @if ( isset($item->image) )
-                            src="{{ asset('/storage/' . $item->image) }}"
-                        @else
-                            @foreach ( $beer as $item )
-                                another
-                            @endforeach
-                        @endif
-                        class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
+                        <img src="{{ asset('/storage/' . $item->image) }}" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                     </div>
                     <div class="align-self-center">
                         <h1 class="color-highlight font-13 mb-n2">{{ $item->beer }}</h1>
@@ -155,7 +129,7 @@
         data-menu-width="350"
         data-menu-height="340">
     <div class="menu-title">
-        <p class="color-highlight" id="beerP">Редактирование</p>
+        <p class="color-highlight" id="beerP">Пиво</p>
         <h1 class="font-22" id="nameOfProduct">[[ НАЗВАНИЕ ПИВА ]]</h1>
         <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
     </div>
@@ -196,10 +170,6 @@
         </div>
         <input type="hidden" id="beer_id">
         <button id="saveBeerButton" type="submit" class="close-menu btn btn-full gradient-blue font-13 btn-m font-600 rounded-s w-100">Сохранить</button>
-    </form>
-    <form method="POST" id="beerDeleteForm">
-        @csrf
-        <button id="deleteBeerButton" type="submit" class="close-menu btn btn-full gradient-red font-13 btn-m font-600 mt-4 mb-2 rounded-s w-100">Удалить</button>
     </form>
     </div>
 </div>
@@ -285,7 +255,6 @@ jQuery(document).ready(function() {
         $('#menu-beer-item').hide();
         var id = $(this).attr('beer_id');
         $('#beerForm').attr('action', '/admin/bar/update/'+id+'');
-        $('#beerDeleteForm').attr('action', '/admin/bar/destroy/'+id+'');
 
         $.ajax({
             type:'POST',
