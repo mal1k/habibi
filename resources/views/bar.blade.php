@@ -5,7 +5,7 @@ true
 @endsection
 
 @section('title')
-Бар
+{{ $home->upper_block_text ?? '' }}
 @endsection
 
 @section('content')
@@ -48,10 +48,10 @@ true
 
       <div class="card card-style">
         <div class="content mb-0 mt-3" id="tab-group-1">
-            <h1 class="text-center mb-2">Бар</h1>
+            <h1 class="text-center mb-2">{{ $home->upper_block_text ?? '' }}</h1>
             <div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
-                <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tab-1ab">Безалкогольные</a>
-                <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-2ab">Алкогольные</a>
+                <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tab-1ab">Безалкогольні</a>
+                <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-2ab">Алкогольні</a>
                 <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-3ab">Закуски</a>
             </div>
 

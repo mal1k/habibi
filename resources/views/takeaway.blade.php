@@ -5,7 +5,7 @@ true
 @endsection
 
 @section('title')
-С собой
+{{ $home->lower_block_text ?? '' }}
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@ true
 
         <div class="content mb-0" id="tab-group-1">
 
-            <h1 class="text-center mb-2">С собой</h1>
+            <h1 class="text-center mb-2">{{ $home->lower_block_text ?? '' }}</h1>
             <div class="clearfix mb-4"></div>
 
             @isset ( $takeaway )

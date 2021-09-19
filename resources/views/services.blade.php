@@ -5,7 +5,7 @@ true
 @endsection
 
 @section('title')
-Услуги
+{{ $home->central_block_text ?? '' }}
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@ true
     <div>
       <div class="card card-style mt-3">
         <div class="content mb-0 mt-3" id="tab-group-1">
-            <h1 class="text-center mb-2">Услуги</h1>
+            <h1 class="text-center mb-2">{{ $home->central_block_text ?? '' }}</h1>
             <div class="clearfix mb-4"></div>
 
             @isset ( $services )

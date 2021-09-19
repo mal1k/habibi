@@ -64,27 +64,27 @@ var barOptionsParams = {
 var myChart1 = new Chart(horizontalChart, {
     type: 'horizontalBar',
     data: {
-        labels: ["Кисло-сладкий", "Пряный", "Сладкий", "Свежий"],
+        labels: ["Кисло-солодкий", "Пряний", "Солодкий", "Свіжий"],
         datasets: [{
                 data: [60, 0, 20, 35],
                 backgroundColor: "rgb(47, 181, 47)",
                 hoverBackgroundColor: "rgb(47, 181, 47)",
-                label: "Кислый"
+                label: "Кислий"
             }, {
                 data: [0, 65, 0, 5],
                 backgroundColor: "rgb(82, 41, 16)",
                 hoverBackgroundColor: "rgb(82, 41, 16)",
-                label: "Пряный"
+                label: "Пряний"
             }, {
                 data: [30, 20, 70, 0],
                 backgroundColor: "rgb(212, 47, 143)",
                 hoverBackgroundColor: "rgb(212, 47, 143)",
-                label: "Сладкий"
+                label: "Солодкий"
             }, {
                 data: [10, 15, 10, 60],
                 backgroundColor: "rgba(136,202,247,1)",
                 hoverBackgroundColor: "rgba(54,162,235,1)",
-                label: "Свежий"
+                label: "Свіжий"
             }
         ]
     },

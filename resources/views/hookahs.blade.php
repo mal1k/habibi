@@ -5,7 +5,7 @@ true
 @endsection
 
 @section('title')
-Кальяны
+{{ $home->left_block_text ?? '' }}
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@ true
 
         <div class="card card-style mt-4">
             <div class="content mb-0">
-                <h1 class="text-center font-28 mb-4">Кальянные миксы</h1>
+                <h1 class="text-center font-28 mb-4">Кальянні мікси</h1>
                 <div class="chart-container mb-4" style="width:100%;">
                     <canvas class="chart" id="horizontal-chart"/>
                 </div>
@@ -24,12 +24,12 @@ true
 
         <div class="card card-style">
             <div class="content mb-0 mt-3" id="tab-group-1">
-                <h1 class="text-center mb-2">Табаки</h1>
+                <h1 class="text-center mb-2">{{ $home->left_block_text ?? '' }}</h1>
                 <div class="tab-controls tabs-small tabs-rounded" data-highlight="bg-highlight">
-                    <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tab-1ab">Легкие</a>
-                    <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-2ab">Средние</a>
-                    <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-3ab">Тяжелые</a>
-                    <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-4ab">Чаши</a>
+                    <a href="#" data-active data-bs-toggle="collapse" data-bs-target="#tab-1ab">Легкі</a>
+                    <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-2ab">Середні</a>
+                    <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-3ab">Важкі</a>
+                    <a href="#" data-bs-toggle="collapse" data-bs-target="#tab-4ab">Чашi</a>
                 </div>
 
                 <div class="clearfix mb-4"></div>
@@ -52,8 +52,8 @@ true
                                 class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                             </div>
                             <div class="align-self-center">
-                                <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
-                                <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
+                                <!-- <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1> -->
+                                <h2 class="color-highlight font-15 line-height-s mt-1 mb-1">{{ $hookah->tobacco }}</h2>
                             </div>
                             <div class="ms-auto align-self-center text-center">
                                 <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
@@ -92,8 +92,8 @@ true
                                 class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                             </div>
                             <div class="align-self-center">
-                                <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
-                                <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
+                                <!-- <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1> -->
+                                <h2 class="color-highlight font-15 line-height-s mt-1 mb-1">{{ $hookah->tobacco }}</h2>
                             </div>
                             <div class="ms-auto align-self-center text-center">
                                 <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
@@ -132,8 +132,8 @@ true
                                 class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                             </div>
                             <div class="align-self-center">
-                                <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1>
-                                <h2 class="font-15 line-height-s mt-1 mb-1">{{ $hookah->title }}</h2>
+                                <!-- <h1 class="color-highlight font-13 mb-n2">{{ $hookah->tobacco }}</h1> -->
+                                <h2 class="color-highlight font-15 line-height-s mt-1 mb-1">{{ $hookah->tobacco }}</h2>
                             </div>
                             <div class="ms-auto align-self-center text-center">
                                 <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
@@ -161,7 +161,8 @@ true
                             <img src="{{ asset('/storage/' . $item->image) }}" class="rounded-sm me-3" width="64" height="64" style="object-fit: cover;">
                         </div>
                         <div class="align-self-center">
-                            <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
+                            <!-- <h2 class="font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2> -->
+                            <h2 class="color-highlight font-15 line-height-s mt-1 mb-1">{{ $item->title }}</h2>
                         </div>
                         <div class="ms-auto align-self-center text-center">
                             <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->

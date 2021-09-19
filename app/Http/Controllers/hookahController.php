@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\bowls;
+use App\Models\home;
 use App\Models\hookah;
 use App\Models\tobacco;
 use App\Models\User;
