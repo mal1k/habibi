@@ -13,7 +13,7 @@ class barController extends Controller
             $beerFirst = bar::where('category' , '=' , 'beer' )->first();
             $beerSecond = bar::where('category' , '=' , 'beer' )->skip(1)->first();
             $bar_query = bar::orderByDesc('id');
-            $bar = $bar_query->paginate(0);
+            $bar = $bar_query->get();
 
             return view('admin.bar.dashboard', compact('bar', 'beerFirst', 'beerSecond'));
         }

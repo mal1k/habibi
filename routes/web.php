@@ -4,12 +4,15 @@ use App\Http\Controllers\barController;
 use App\Http\Controllers\bowlsController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\hookahController;
+use App\Http\Controllers\servicesController;
+use App\Http\Controllers\takeawayController;
 use App\Http\Controllers\tobaccoController;
 use App\Models\bar;
 use App\Models\bowls;
 use App\Models\home;
 use App\Models\hookah;
 use App\Models\services;
+use App\Models\takeaway;
 use App\Models\tobacco;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
@@ -48,6 +51,10 @@ use Illuminate\Support\Facades\Route;
         Route::get('/hookah', [hookahController::class, 'index'])->name('admin.hookah.index');
       // bar editor link
         Route::get('/bar', [barController::class, 'index'])->name('admin.bar.index');
+      // services editor link
+        Route::get('/services', [servicesController::class, 'index'])->name('admin.services.index');
+      // takeaway editor link
+        Route::get('/take-a-way', [takeawayController::class, 'index'])->name('admin.takeaway.index');
     # Handlers
       // home handlers
         Route::prefix('home')->group(function () {
@@ -82,6 +89,20 @@ use Illuminate\Support\Facades\Route;
             Route::post('/update/{id}', [barController::class, 'update'])->name('admin.bar.update');
             Route::post('/destroy/{id}', [barController::class, 'destroy'])->name('admin.bar.destroy');
         });
+      // services handlers
+        Route::prefix('services')->group(function () {
+            Route::post('/get', [servicesController::class, 'get'])->name('admin.services.get');
+            Route::post('/store', [servicesController::class, 'store'])->name('admin.services.store');
+            Route::post('/update/{id}', [servicesController::class, 'update'])->name('admin.services.update');
+            Route::post('/destroy/{id}', [servicesController::class, 'destroy'])->name('admin.services.destroy');
+        });
+      // takeaway handlers
+        Route::prefix('takeaway')->group(function () {
+            Route::post('/get', [takeawayController::class, 'get'])->name('admin.takeaway.get');
+            Route::post('/store', [takeawayController::class, 'store'])->name('admin.takeaway.store');
+            Route::post('/update/{id}', [takeawayController::class, 'update'])->name('admin.takeaway.update');
+            Route::post('/destroy/{id}', [takeawayController::class, 'destroy'])->name('admin.takeaway.destroy');
+        });
     });
   });
 
@@ -95,13 +116,13 @@ use Illuminate\Support\Facades\Route;
     Route::get('/hookahs', function () {
         $home = home::first();
         $hookahs_query = hookah::orderByDesc('id');
-        $hookahs = $hookahs_query->paginate(0);
+        $hookahs = $hookahs_query->get();
 
         $tobacco_query = tobacco::orderByDesc('id');
-        $tobacco = $tobacco_query->paginate(0);
+        $tobacco = $tobacco_query->get();
 
         $bowls_query = bowls::orderByDesc('id');
-        $bowls = $bowls_query->paginate(0);
+        $bowls = $bowls_query->get();
 
         return view('hookahs', compact('home', 'hookahs', 'tobacco', 'bowls'));
     })->name('menu.hookahs');
@@ -110,7 +131,7 @@ use Illuminate\Support\Facades\Route;
         $beerFirst = bar::where('category' , '=' , 'beer' )->first();
         $beerSecond = bar::where('category' , '=' , 'beer' )->skip(1)->first();
         $bar_query = bar::orderByDesc('id');
-        $bar = $bar_query->paginate(0);
+        $bar = $bar_query->get();
         $home = home::first();
 
         return view('bar', compact('home', 'bar', 'beerFirst', 'beerSecond'));
@@ -118,12 +139,22 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/services', function () {
         $services_query = services::orderByDesc('id');
-        $services = $services_query->paginate(0);
+        $services = $services_query->get();
         $home = home::first();
         return view('services', compact('home', 'services'));
     })->name('menu.services');
 
-    Route::get('/take-away', function () {
+    Route::get('/take-a-way', function () {
         $home = home::first();
-        return view('takeAway', compact('home'));
+
+        $delivery = takeaway::first();
+
+        $count = takeaway::count();
+        $skip = 1;
+        $limit = $count - $skip;
+        $takeaway_query = takeaway::skip($skip)->take($limit)->get();
+
+        $takeaway = $takeaway_query;
+
+        return view('takeaway', compact('home', 'takeaway', 'delivery'));
     })->name('menu.takeAway');

@@ -40,8 +40,8 @@
         <a href="{{ route('admin.hookah.index') }}" class="@if (app()->view->getSections()['menu-num'] == 1) active-nav @endif"><i class="fas fa-smoking"></i><span>Кальяны</span></a>
         <a href="{{ route('admin.bar.index') }}" class="@if (app()->view->getSections()['menu-num'] == 2) active-nav @endif"><i class="fas fa-glass-cheers"></i><span>Бар</span></a>
         <a href="{{ route('admin.home.dashboard') }}" class="circle-nav @if (app()->view->getSections()['menu-num'] == 3) active-nav @endif"><i class="fa fa-home"></i><span>Главная</span></a>
-        <a href="#" class="@if (app()->view->getSections()['menu-num'] == 4) active-nav @endif"><i class="fas fa-concierge-bell"></i><span>Услуги</span></a>
-        <a href="#" class="@if (app()->view->getSections()['menu-num'] == 5) active-nav @endif"><i class="fas fa-taxi"></i><span>С собой</span></a>
+        <a href="{{ route('admin.services.index') }}" class="@if (app()->view->getSections()['menu-num'] == 4) active-nav @endif"><i class="fas fa-concierge-bell"></i><span>Услуги</span></a>
+        <a href="{{ route('admin.takeaway.index') }}" class="@if (app()->view->getSections()['menu-num'] == 5) active-nav @endif"><i class="fas fa-taxi"></i><span>С собой</span></a>
     </div>
     <!-- footer menu end -->
 

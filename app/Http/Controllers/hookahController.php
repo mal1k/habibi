@@ -19,13 +19,13 @@ class hookahController extends Controller
     public function index()
     {
         $hookahs_query = hookah::orderByDesc('id');
-        $hookahs = $hookahs_query->paginate(0);
+        $hookahs = $hookahs_query->get();
 
         $tobacco_query = tobacco::orderByDesc('id');
-        $tobacco = $tobacco_query->paginate(0);
+        $tobacco = $tobacco_query->get();
 
         $bowls_query = bowls::orderByDesc('id');
-        $bowls = $bowls_query->paginate(0);
+        $bowls = $bowls_query->get();
 
         return view('admin.hookah.dashboard', compact('hookahs', 'tobacco', 'bowls'));
     }
