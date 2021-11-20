@@ -135,6 +135,10 @@ body {
   background-image: url(../images/preload-logo.png);
 }
 
+.max-content {
+    width: max-content !important;
+}
+
 /* Generating Color Pack*/
 .color-highlight {
   color: #4A89DC !important;

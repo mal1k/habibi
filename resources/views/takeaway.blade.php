@@ -39,7 +39,7 @@ true
                         </div>
                         <div class="ms-auto align-self-center text-center">
                             <!-- <p class="color-highlight font-10 mb-n2">за шт.</p> -->
-                            <h2 class="font-15 mb-0" id="price">{{ $item->price }} ₴</h2>
+                            <h2 class="font-15 mb-0 max-content" id="price">{{ $item->price }} ₴</h2>
                         </div>
                     </div>
                 @endforeach
